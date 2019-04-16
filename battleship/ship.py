@@ -1,6 +1,3 @@
-from enum import Enum
-
-
 class ShipCell(object):
     def __init__(self):
         self._destroyed = False
@@ -17,12 +14,7 @@ class ShipCell(object):
 
 
 class Ship(object):
-    class RotationEnum(Enum):
-        HORIZONTAL = 1
-        VERTICAL = 2
-
     def __init__(self, size: int):
-        self._rotation = self.RotationEnum.HORIZONTAL
         self._cells = [ShipCell() for _ in range(size)]
 
     @property
