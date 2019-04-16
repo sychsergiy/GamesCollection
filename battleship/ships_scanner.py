@@ -38,7 +38,7 @@ class ShipsScanner(object):
 
     def scan_cell_with_location(self, x: int, y: int) -> bool:
         # todo: return list of locations with found ships
-        is_ships_found = any([
+        scanned_cells = [
             location for location in (
                 self._scan_cell(x, y),
                 self._scan_top_cell(x, y),
@@ -49,6 +49,7 @@ class ShipsScanner(object):
                 self._scan_left_top_corner(x, y),
                 self._scan_right_down_corner(x, y),
                 self._scan_right_top_corner(x, y)
-            ) if location
-        ])
+            )
+        ]
+        is_ships_found = any(scanned_cells)
         return is_ships_found

@@ -1,16 +1,16 @@
+import pytest
+
 from battleship.battlefield import Battlefield
 from battleship.ships_locator import (
-    VerticalShipsLocator,
-    HorizontalShipsLocator,
+    VerticalShipLocator,
+    HorizontalShipLocator,
 )
 from battleship.ship import Ship
 
 
-# todo: fix scanner checks only ships nearby, but ship can be too big to locate
-
-def test_ships_horizontal_locator():
+def test_horizontal_ship_locator():
     battlefield = Battlefield(5, 5)
-    horizontal_locator = HorizontalShipsLocator(battlefield)
+    horizontal_locator = HorizontalShipLocator(battlefield)
 
     ship = Ship(2)
     first_ship_located = horizontal_locator.locate_ship(ship, 2, 2)
@@ -20,9 +20,9 @@ def test_ships_horizontal_locator():
     assert not second_ship_located
 
 
-def test_vertical_ship_locator_true():
+def test_vertical_ship_locator():
     battlefield = Battlefield(5, 5)
-    vertical_locator = VerticalShipsLocator(battlefield)
+    vertical_locator = VerticalShipLocator(battlefield)
 
     ship = Ship(2)
     first_ship_located = vertical_locator.locate_ship(ship, 2, 2)
@@ -31,3 +31,21 @@ def test_vertical_ship_locator_true():
     ship = Ship(1)
     second_ship_located = vertical_locator.locate_ship(ship, 2, 3)
     assert not second_ship_located
+
+
+def test_vertical_ship_locator_outside_battle_field():
+    battlefield = Battlefield(4, 4)
+    vertical_locator = VerticalShipLocator(battlefield)
+
+    ship = Ship(3)
+    first_ship_located = vertical_locator.locate_ship(ship, 2, 2)
+    assert not first_ship_located
+
+
+def test_horizontal_ship_locator_outside_battle_field():
+    battlefield = Battlefield(4, 4)
+    horizontal_locator = HorizontalShipLocator(battlefield)
+
+    ship = Ship(3)
+    first_ship_located = horizontal_locator.locate_ship(ship, 2, 2)
+    assert not first_ship_located
