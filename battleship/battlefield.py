@@ -25,11 +25,16 @@ class BattlefieldCell(object):
 
 
 class Battlefield(object):
-    def __init__(self, size: int):
-        self.size = size
+    def __init__(self, width: int, height: int):
+        self.width = width
+        self.height = height
+        self._cells_matrix = None
+        self._init_cells_matrix(width, height)
+
+    def _init_cells_matrix(self, width: int, height: int):
         self._cells_matrix = [
-            [BattlefieldCell() for _ in range(size)]
-            for _ in range(size)
+            [BattlefieldCell() for _ in range(width)]
+            for _ in range(height)
         ]
 
     @property
@@ -37,6 +42,8 @@ class Battlefield(object):
         return self._cells_matrix
 
     def _get_cell(self, x: int, y: int) -> BattlefieldCell:
+        x, y = y, x
+        # swap x and y coordinates to go to standard coordinate system
         return self._cells_matrix[x][y]
 
     def set_cell_state_empty(self, x: int, y: int):
@@ -50,6 +57,11 @@ class Battlefield(object):
 
     def set_cell_state_with_hited_ship(self, x: int, y: int):
         self._get_cell(x, y).state = BattlefieldCell.States.WITH_HITED_SHIP
+
+    def is_location_inside(self, x: int, y: int) -> bool:
+        inside_x = 0 < x < self.width
+        inside_y = 0 < y < self.height
+        return inside_x and inside_y
 
     def __str__(self) -> str:
         matrix_str = '\n'.join(
