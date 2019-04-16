@@ -63,6 +63,9 @@ class Battlefield(object):
         inside_y = 0 < y < self.height
         return inside_x and inside_y
 
+    def is_cell_with_ship(self, x: int, y: int) -> bool:
+        return self._get_cell(x, y).state == BattlefieldCell.States.WITH_SHIP
+
     def __str__(self) -> str:
         matrix_str = '\n'.join(
             [''.join([str(cell) for cell in cell_row])
