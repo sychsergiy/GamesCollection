@@ -1,0 +1,2 @@
+class SeaMap(object):
+    pass
