@@ -50,6 +50,11 @@ class AbstractShipLocation(object):
     def is_ship_on_cell(self, cell: Cell):
         return cell in self.get_ship_cells()
 
+    def get_ship_cell_index(self, cell: Cell) -> t.Union[int, None]:
+        ship_cells = self.get_ship_cells()
+        if cell in ship_cells:
+            return ship_cells.index(cell)
+
 
 class VerticalShipLocation(AbstractShipLocation):
     def get_last_cell(self) -> Cell:
