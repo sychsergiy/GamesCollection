@@ -10,10 +10,10 @@ from battleship.cell import Cell
 
 
 class PlayerBattlefield(object):
-    def __init__(self, battlefield: Battlefield):
-        self._battlefield = battlefield
-        self._ships_locator = ShipsLocator(battlefield)
-        self._ship_locator = ShipLocator(battlefield, self._ships_locator)
+    def __init__(self):
+        self._battlefield = Battlefield(5, 5)
+        self._ships_locator = ShipsLocator(self._battlefield)
+        self._ship_locator = ShipLocator(self._battlefield, self._ships_locator)
         self._shot_manager = ShotManager(self._ships_locator)
         # todo: refactor
         self._ships = None
@@ -37,7 +37,7 @@ class PlayerBattlefield(object):
     def is_game_over(self):
         return all([ship.is_destroyed() for ship in self._ships])
 
-    def get_current_battlefield_state(self, show_unwounded_ships_cells=True):
+    def get_current_battlefield_state(self, show_unwounded_ships_cells):
         # todo: add separate class to draw battlefield
         battlefield_matrix = [
             # empty cells
