@@ -1,11 +1,11 @@
 from battleship.battlefield import Battlefield
 from battleship.cell import Cell
-from battleship.gun import ShotManager
+from battleship.shot_manager import ShotManager
 from battleship.ship import Ship
 from battleship.ship_location import HorizontalShipLocation
 from battleship.ship_locator import ShipLocator
 from battleship.ships_locator import ShipsLocator
-from battleship.gun import ShotResultEnum
+from battleship.shot_manager import ShotResultEnum
 
 
 def test_horizontal_ship_location():
