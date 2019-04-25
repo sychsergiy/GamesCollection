@@ -51,14 +51,21 @@ class PlayerBattlefield(object):
     ) -> bool:
         assert isinstance(rotation, ShipRotationEnum)
         cell = Cell(x, y)
-        ship = self._ships_counter.retrieve_ship(ship_size)
-        if not ship:
+
+        ships_count = self._ships_counter.ships_with_size_left(ship_size)
+        if ships_count == 0:
             return False
+
+        ship = Ship(ship_size)
         if rotation == ShipRotationEnum.VERTICAL:
             ship_location = VerticalShipLocation(ship, cell)
         elif rotation == ShipRotationEnum.HORIZONTAL:
             ship_location = HorizontalShipLocation(ship, cell)
-        return self._ship_locator.locate_ship(ship_location)
+
+        ship_located = self._ship_locator.locate_ship(ship_location)
+        if ship_located:
+            self._ships_counter.retrieve_ship(ship_size)
+        return ship_located
 
     # todo: add relocate ships method
 
