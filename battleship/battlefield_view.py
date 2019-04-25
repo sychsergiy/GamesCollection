@@ -1,6 +1,6 @@
 from battleship.battlefield import Battlefield
 from battleship.ships_locator import ShipsLocator
-from battleship.shot_manager import ShotManager
+from battleship.gun import Gun
 from battleship.cell import Cell
 
 
@@ -9,7 +9,7 @@ class BattlefieldView(object):
             self,
             battlefield: Battlefield,
             ships_locator: ShipsLocator,
-            shot_manager: ShotManager
+            shot_manager: Gun
     ):
         self._ships_locator = ships_locator
         self._shot_manager = shot_manager

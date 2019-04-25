@@ -1,11 +1,10 @@
 from battleship.battlefield import Battlefield
 from battleship.cell import Cell
-from battleship.shot_manager import ShotManager
 from battleship.ship import Ship
 from battleship.ship_location import HorizontalShipLocation
 from battleship.ship_locator import ShipLocator
 from battleship.ships_locator import ShipsLocator
-from battleship.shot_manager import ShotResultEnum
+from battleship.gun import Gun
 
 
 def test_horizontal_ship_location():
@@ -17,12 +16,12 @@ def test_horizontal_ship_location():
     first_ship_located = locator.locate_ship(ship_location)
     assert first_ship_located
 
-    shot_manager = ShotManager(ships_locator)
+    shot_manager = Gun(battlefield, ships_locator)
     first_shot_result = shot_manager.shot(Cell(2, 2))
-    assert first_shot_result == ShotResultEnum.SHIP_WOUNDED
+    assert first_shot_result == Gun.ShotResultEnum.SHIP_WOUNDED
     second_shot_result = shot_manager.shot(Cell(3, 2))
-    assert second_shot_result == ShotResultEnum.SHIP_DESTROYED
+    assert second_shot_result == Gun.ShotResultEnum.SHIP_DESTROYED
     third_shot_result = shot_manager.shot(Cell(2, 2))
-    assert third_shot_result == ShotResultEnum.ALREADY_SHOT
+    assert third_shot_result == Gun.ShotResultEnum.ALREADY_SHOT
     fourth_shot_result = shot_manager.shot(Cell(1, 1))
-    assert fourth_shot_result == ShotResultEnum.MISS
+    assert fourth_shot_result == Gun.ShotResultEnum.MISS
