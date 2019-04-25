@@ -2,6 +2,7 @@ import typing as t
 
 from battleship.battlefield_view import BattlefieldView
 from battleship.game_mode import GameMode
+from battleship.ships_counter import ShipsCounter
 from battleship.gun import Gun
 from battleship.ships_locator import ShipsLocator
 from battleship.ship_locator import ShipLocator
@@ -26,8 +27,6 @@ class PlayerBattlefield(object):
             game_mode: GameMode,
 
     ):
-        # todo: located all ships from game_mode and than start game
-
         # todo: move all class to arguments
         self._ships_locator = ShipsLocator(game_mode.battlefield)
         self._gun = Gun(
@@ -39,6 +38,9 @@ class PlayerBattlefield(object):
         self._view = BattlefieldView(
             game_mode.battlefield, self._ships_locator, self._gun
         )
+        self._ships_counter = ShipsCounter(game_mode)
+
+        self._ready_to_start = False
 
     def locate_ship(
             self,
@@ -49,12 +51,16 @@ class PlayerBattlefield(object):
     ) -> bool:
         assert isinstance(rotation, ShipRotationEnum)
         cell = Cell(x, y)
-        ship = Ship(ship_size)
+        ship = self._ships_counter.retrieve_ship(ship_size)
+        if not ship:
+            return False
         if rotation == ShipRotationEnum.VERTICAL:
             ship_location = VerticalShipLocation(ship, cell)
         elif rotation == ShipRotationEnum.HORIZONTAL:
             ship_location = HorizontalShipLocation(ship, cell)
         return self._ship_locator.locate_ship(ship_location)
+
+    # todo: add relocate ships method
 
     @property
     def ships(self) -> t.List[Ship]:
@@ -71,6 +77,17 @@ class PlayerBattlefield(object):
 
     def is_game_over(self) -> bool:
         return all([ship.is_destroyed() for ship in self.ships])
+
+    @property
+    def ready_to_start(self) -> bool:
+        return self._ready_to_start
+
+    def set_ready_to_start(self) -> bool:
+        if not self._ships_counter.is_all_ships_retrieved():
+            return False
+        else:
+            self._ready_to_start = True
+            return True
 
     def print_battlefield_view(self, show_unwounded_ships_cells):
         # todo: remove method from current class

@@ -18,5 +18,5 @@ class ShipsCounter(object):
             return Ship(ship_size)
 
     def is_all_ships_retrieved(self) -> bool:
-        at_least_one_ship_left = any([self._ship_size_count_map.values()])
+        at_least_one_ship_left = any(self._ship_size_count_map.values())
         return not at_least_one_ship_left
