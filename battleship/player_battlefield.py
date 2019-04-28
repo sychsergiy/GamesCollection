@@ -85,7 +85,7 @@ class PlayerBattlefield(object):
         # todo: try Except
         return self._gun.shot(cell)
 
-    def is_game_over(self) -> bool:
+    def is_all_ships_destroyed(self) -> bool:
         return all([ship.is_destroyed() for ship in self.ships])
 
     @property
