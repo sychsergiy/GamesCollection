@@ -15,10 +15,5 @@ def test_player_battlefield_ready_to_start():
     )
 
     assert game.next_turn(1, 1) == Gun.ShotResultEnum.MISS
-    print('\n')
-    game.print_battlefields()
-
     assert game.next_turn(2, 2) == Gun.ShotResultEnum.MISS
-    print('\n')
-    game.print_battlefields()
 
