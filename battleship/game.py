@@ -5,6 +5,14 @@ from battleship.game_mode import GameMode
 from battleship.player_battlefield import PlayerBattlefield
 
 
+class GameOverException(Exception):
+    pass
+
+
+class ShipsLocatingStepNotFinished(Exception):
+    pass
+
+
 class Game(object):
     def __init__(
             self,
@@ -63,15 +71,19 @@ class Game(object):
 
     def next_hit(self, x: int, y: int) -> Gun.ShotResultEnum:
         if not self.ships_locating_step_finished:
-            raise Exception("Ships locating step not finished")
+            raise ShipsLocatingStepNotFinished(
+                "Ships locating step not finished"
+            )
 
         cell = Cell(x, y)
         if self._first_player_turn:
             self._first_player_turn = not self._first_player_turn
-            return self._player_battlefield_hit(self._first_player_battlefield, cell)
+            return self._player_battlefield_hit(self._first_player_battlefield,
+                                                cell)
         else:
             self._first_player_turn = not self._first_player_turn
-            return self._player_battlefield_hit(self._second_player_battlefield, cell)
+            return self._player_battlefield_hit(self._second_player_battlefield,
+                                                cell)
 
     def get_current_turn_player_battlefield(self):
         if self._first_player_turn:
@@ -94,7 +106,7 @@ class Game(object):
             # todo: handle game over
             is_game_over = player_battlefield.all_ships_destroyed
             if is_game_over:
-                raise Exception(
+                raise GameOverException(
                     f"Game over, {player_battlefield._player.name} winner"
                 )
         return shot_result
