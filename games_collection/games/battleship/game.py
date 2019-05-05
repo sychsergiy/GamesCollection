@@ -1,8 +1,10 @@
-from battleship.gun import Gun
-from battleship.cell import Cell
-from battleship.player import Player
-from battleship.game_mode import GameMode
-from battleship.player_battlefield import PlayerBattlefield
+from games_collection.games.battleship.gun import Gun
+from games_collection.games.battleship.cell import Cell
+from games_collection.games.battleship.player import Player
+from games_collection.games.battleship.game_mode import GameMode
+from games_collection.games.battleship.player_battlefield import (
+    PlayerBattlefield
+)
 
 
 class GameOverException(Exception):

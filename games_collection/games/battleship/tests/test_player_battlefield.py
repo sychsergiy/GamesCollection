@@ -1,8 +1,8 @@
-from battleship.player_battlefield import PlayerBattlefield
-from battleship.cell import Cell
-from battleship.player import Player
-from battleship.battlefield import Battlefield
-from battleship.game_mode import GameMode
+from games_collection.games.battleship.player_battlefield import PlayerBattlefield
+from games_collection.games.battleship.cell import Cell
+from games_collection.games.battleship.player import Player
+from games_collection.games.battleship.battlefield import Battlefield
+from games_collection.games.battleship.game_mode import GameMode
 
 
 def test_player_battlefield_not_ready_to_start():

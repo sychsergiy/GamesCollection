@@ -1,11 +1,11 @@
 import pytest
 
-from battleship.battlefield import Battlefield
-from battleship.gun import Gun
-from battleship.game_mode import GameMode
-from battleship.player import Player
-from battleship.game import Game
-from battleship.game import GameOverException, ShipsLocatingStepNotFinished
+from games_collection.games.battleship.battlefield import Battlefield
+from games_collection.games.battleship.gun import Gun
+from games_collection.games.battleship.game_mode import GameMode
+from games_collection.games.battleship.player import Player
+from games_collection.games.battleship.game import Game
+from games_collection.games.battleship.game import GameOverException, ShipsLocatingStepNotFinished
 
 
 def test_player_battlefield_ready_to_start():
