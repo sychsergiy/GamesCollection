@@ -2,7 +2,6 @@ import typing as t
 
 from games_collection.games.battleship.battlefield_view import BattlefieldView
 from games_collection.games.battleship.game_mode import GameMode
-from games_collection.games.battleship.player import Player
 from games_collection.games.battleship.ships_counter import ShipsCounter
 from games_collection.games.battleship.gun import Gun
 from games_collection.games.battleship.ships_locator import ShipsLocator
@@ -22,15 +21,12 @@ class ShipRotationEnum(Enum):
     HORIZONTAL = 1
 
 
-class PlayerBattlefield(object):
+class BattleshipField(object):
     def __init__(
             self,
-            player: Player,
             game_mode: GameMode,
 
     ):
-        # todo: move all class to arguments
-        self._player = player
         self._ships_locator = ShipsLocator(game_mode.battlefield)
         self._gun = Gun(
             game_mode.battlefield, self._ships_locator

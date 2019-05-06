@@ -1,9 +1,8 @@
 from games_collection.games.battleship.gun import Gun
 from games_collection.games.battleship.cell import Cell
-from games_collection.games.battleship.player import Player
 from games_collection.games.battleship.game_mode import GameMode
-from games_collection.games.battleship.player_battlefield import (
-    PlayerBattlefield
+from games_collection.games.battleship.battleship_field import (
+    BattleshipField
 )
 
 
@@ -18,16 +17,10 @@ class ShipsLocatingStepNotFinished(Exception):
 class Game(object):
     def __init__(
             self,
-            first_player: Player,
-            second_player: Player,
             game_mode: GameMode,
     ):
-        self._first_player_battlefield = PlayerBattlefield(
-            first_player, game_mode
-        )
-        self._second_player_battlefield = PlayerBattlefield(
-            second_player, game_mode
-        )
+        self._first_player_battlefield = BattleshipField(game_mode)
+        self._second_player_battlefield = BattleshipField(game_mode)
         self._first_player_turn = False
 
     def first_player_locate_ship(self, x: int, y: int, ship_size) -> bool:
@@ -44,7 +37,7 @@ class Game(object):
 
     @staticmethod
     def _locate_ship_on_player_battlefield(
-            player_battlefield: PlayerBattlefield,
+            player_battlefield: BattleshipField,
             cell: Cell,
             ship_size: int
     ) -> bool:
@@ -60,7 +53,7 @@ class Game(object):
 
     @staticmethod
     def finish_ships_locating_step(
-            player_battlefield: PlayerBattlefield
+            player_battlefield: BattleshipField
     ) -> bool:
         return player_battlefield.finish_ships_locating()
 
@@ -71,7 +64,7 @@ class Game(object):
                 and self._second_player_battlefield.ships_locating_finished
         )
 
-    def next_hit(self, x: int, y: int) -> Gun.ShotResultEnum:
+    def next_shot(self, x: int, y: int) -> Gun.ShotResultEnum:
         if not self.ships_locating_step_finished:
             raise ShipsLocatingStepNotFinished(
                 "Ships locating step not finished"
@@ -101,7 +94,7 @@ class Game(object):
 
     @staticmethod
     def _player_battlefield_hit(
-            player_battlefield: PlayerBattlefield, cell: Cell
+            player_battlefield: BattleshipField, cell: Cell
     ) -> Gun.ShotResultEnum:
         shot_result = player_battlefield.shot(cell)
         if shot_result == Gun.ShotResultEnum.SHIP_DESTROYED:
@@ -109,6 +102,6 @@ class Game(object):
             is_game_over = player_battlefield.all_ships_destroyed
             if is_game_over:
                 raise GameOverException(
-                    f"Game over, {player_battlefield._player.name} winner"
+                    f"Game over"
                 )
         return shot_result
