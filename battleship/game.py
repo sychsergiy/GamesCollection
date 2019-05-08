@@ -1,0 +1,2 @@
+class BattleshipGame(object):
+    pass
