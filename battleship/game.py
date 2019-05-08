@@ -1,2 +1,2 @@
-class BattleshipGame(object):
+class BattleShipGame(object):
     pass
