@@ -1,2 +1,0 @@
-class GamesCollection(object):
-    pass
