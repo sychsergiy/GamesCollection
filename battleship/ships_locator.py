@@ -1,15 +1,15 @@
 import typing as t
 
 from battleship.battlefield import Battlefield
-from battleship.ship_location import ShipLocation
+from battleship.ship_location import AbstractShipLocation
 from battleship.ship import Ship
 from battleship.cell import Cell
 
 
-class ShipsLocationStorage(object):
+class ShipsLocator(object):
     def __init__(self, battlefield: Battlefield):
         self._battlefield = battlefield
-        self._ship_locations: t.Set[ShipLocation] = set()
+        self._ship_locations: t.Set[AbstractShipLocation] = set()
 
     def get_busy_cells(self):
         cells_with_ships = set()
@@ -39,7 +39,7 @@ class ShipsLocationStorage(object):
         }
         return cells_around_ships_inside_battlefield
 
-    def add_ship_location(self, ship_location: ShipLocation):
+    def add_ship_location(self, ship_location: AbstractShipLocation):
         self._ship_locations.add(ship_location)
 
     def get_ship_by_cell(self, location: Cell) -> t.Union[None, Ship]:
