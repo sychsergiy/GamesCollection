@@ -14,9 +14,15 @@ class ShotResultEnum(Enum):
 
 
 class ShotManager(object):  # todo: rename fucking manager
-    def __init__(self, ships_locator: ShipsLocator):
+    def __init__(
+            self, ships_locator: ShipsLocator, hited_cells: t.Set[Cell] = None
+    ):
         self._ships_locator = ships_locator
-        self._hited_cells: t.Set[Cell] = set()
+        self._hited_cells: t.Set[Cell] = hited_cells or set()
+
+    @property
+    def hited_cells(self):
+        return self._hited_cells
 
     def shot(self, cell: Cell) -> ShotResultEnum:
         ship_location = self._ships_locator.get_ship_location_by_cell(cell)
@@ -33,10 +39,3 @@ class ShotManager(object):  # todo: rename fucking manager
             return ShotResultEnum.SHIP_WOUNDED
         return ShotResultEnum.MISS
 
-
-class Gun(object):
-    def __init__(self):
-        pass
-
-    def shot(self):
-        pass

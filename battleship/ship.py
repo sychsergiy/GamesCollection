@@ -21,11 +21,21 @@ class Ship(object):
     def size(self):
         return len(self._cells)
 
-    def is_destroyed(self):
+    @property
+    def health(self):
+        return len([cell for cell in self._cells if not cell.destroyed])
+
+    def is_destroyed(self) -> bool:
         return all([cell.destroyed for cell in self._cells])
 
-    def is_wounded(self):
-        return any([cell.destroyed for cell in self._cells])
+    def is_alive(self) -> bool:
+        return any([not cell.destroyed for cell in self._cells])
+
+    def get_destroyed_cells_indexes(self):
+        destroyed_cells_indexes = [
+            self._cells.index(cell) for cell in self._cells if cell.destroyed
+        ]
+        return destroyed_cells_indexes
 
     def hit(self, cell_index: int) -> bool:
         cell_destroyed = self._cells[cell_index].hit()
