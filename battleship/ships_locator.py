@@ -79,7 +79,7 @@ class VerticalShipLocator(ShipLocator):
         if not self.is_ship_location_possible(ship, location):
             return False
         for i in range(0, ship.size):
-            next_cell_location = Location(location.x, location.y + 1)
+            next_cell_location = Location(location.x, location.y + i)
             self._battlefield.set_cell_state_with_ship(next_cell_location)
         return True
 

@@ -7,8 +7,6 @@ class BattlefieldCell(object):
     class States(Enum):
         EMPTY = 1
         WITH_SHIP = 2
-        EMPTY_HITED = 3
-        WITH_HITED_SHIP = 4
 
     def __init__(self):
         self._state = self.States.EMPTY
@@ -20,10 +18,17 @@ class BattlefieldCell(object):
     def state(self):
         return self._state
 
-    @state.setter
-    def state(self, value: States):
-        assert isinstance(value, self.States)
-        self._state = value
+    def set_state_empty(self):
+        self._state = self.States.EMPTY
+
+    def set_state_with_ship(self):
+        self._state = self.States.WITH_SHIP
+
+    def is_empty(self) -> bool:
+        return self._state == self.States.EMPTY
+
+    def is_with_ship(self) -> bool:
+        return self._state == self.States.WITH_SHIP
 
 
 class Battlefield(object):
@@ -49,16 +54,10 @@ class Battlefield(object):
         return self._cells_matrix[x][y]
 
     def set_cell_state_empty(self, location: Location):
-        self._get_cell(location).state = BattlefieldCell.States.EMPTY
-
-    def set_cell_state_empty_hited(self, location: Location):
-        self._get_cell(location).state = BattlefieldCell.States.EMPTY_HITED
+        self._get_cell(location).set_state_empty()
 
     def set_cell_state_with_ship(self, location: Location):
-        self._get_cell(location).state = BattlefieldCell.States.WITH_SHIP
-
-    def set_cell_state_with_hited_ship(self, location: Location):
-        self._get_cell(location).state = BattlefieldCell.States.WITH_HITED_SHIP
+        self._get_cell(location).set_state_with_ship()
 
     def is_location_inside(self, location: Location) -> bool:
         inside_x = 0 <= location.x < self.width
@@ -67,7 +66,11 @@ class Battlefield(object):
 
     def is_cell_with_ship(self, location: Location) -> bool:
         cell = self._get_cell(location)
-        return cell.state == BattlefieldCell.States.WITH_SHIP
+        return cell.is_with_ship()
+
+    def is_cell_empty(self, location: Location) -> bool:
+        cell = self._get_cell(location)
+        return cell.is_empty()
 
     def __str__(self) -> str:
         matrix_str = '\n'.join(
