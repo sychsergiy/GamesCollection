@@ -39,10 +39,15 @@ class ShipsLocator(object):
         }
         return cells_around_ships_inside_battlefield
 
-    def add_ship_location(self, ship_location: AbstractShipLocation):
+    def _add_ship_location(self, ship_location: AbstractShipLocation):
         self._ship_locations.add(ship_location)
 
-    def get_ship_by_cell(self, location: Cell) -> t.Union[None, Ship]:
+    def get_ship_by_cell(self, cell: Cell) -> t.Union[None, Ship]:
+        return self.get_ship_location_by_cell(cell).ship
+
+    def get_ship_location_by_cell(
+            self, cell: Cell
+    ) -> t.Union[None, AbstractShipLocation]:
         for ship_location in self._ship_locations:
-            if ship_location.is_ship_on_cell(location):
-                return ship_location.ship
+            if ship_location.is_ship_on_cell(cell):
+                return ship_location

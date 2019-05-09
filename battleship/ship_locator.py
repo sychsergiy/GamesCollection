@@ -16,7 +16,7 @@ class ShipLocator(object):
             self, ship_location: AbstractShipLocation
     ) -> bool:
         if self.is_ship_location_possible(ship_location):
-            self._ships_locator.add_ship_location(ship_location)
+            self._ships_locator._add_ship_location(ship_location)
             return True
         return False
 
