@@ -35,7 +35,7 @@ class ShipsLocator(object):
             )
         cells_around_ships_inside_battlefield = {
             cell for cell in cells_around_ships
-            if self._battlefield.is_location_inside(cell)
+            if self._battlefield.is_cell_internal(cell)
         }
         return cells_around_ships_inside_battlefield
 
