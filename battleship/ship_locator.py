@@ -16,7 +16,7 @@ class ShipLocator(object):
             self, ship_location: AbstractShipLocation
     ) -> bool:
         if self.is_ship_location_possible(ship_location):
-            self._ships_locator.add_ship_location(ship_location)
+            self._ships_locator._add_ship_location(ship_location)
             return True
         return False
 
@@ -30,11 +30,11 @@ class ShipLocator(object):
     def is_ship_location_inside_battlefield(
             self, ship_location: AbstractShipLocation
     ) -> bool:
-        if not self._battlefield.is_location_inside(
+        if not self._battlefield.is_cell_internal(
                 ship_location.left_top_cell):
             return False
         last_ship_cell_location = ship_location.get_last_cell()
-        return self._battlefield.is_location_inside(last_ship_cell_location)
+        return self._battlefield.is_cell_internal(last_ship_cell_location)
 
     def is_ships_nearby_present(
             self, ship_location: AbstractShipLocation
