@@ -2,7 +2,7 @@ import typing as t
 
 from battleship.battlefield_view import BattlefieldView
 from battleship.game_mode import GameMode
-from battleship.shot_manager import ShotManager, ShotResultEnum
+from battleship.gun import Gun
 from battleship.ships_locator import ShipsLocator
 from battleship.ship_locator import ShipLocator
 from battleship.ship_location import (
@@ -30,14 +30,14 @@ class PlayerBattlefield(object):
 
         # todo: move all class to arguments
         self._ships_locator = ShipsLocator(game_mode.battlefield)
-        self._shot_manager = ShotManager(
+        self._gun = Gun(
             game_mode.battlefield, self._ships_locator
         )
         self._ship_locator = ShipLocator(
             game_mode.battlefield, self._ships_locator
         )
         self._view = BattlefieldView(
-            game_mode.battlefield, self._ships_locator, self._shot_manager
+            game_mode.battlefield, self._ships_locator, self._gun
         )
 
     def locate_ship(
@@ -64,10 +64,10 @@ class PlayerBattlefield(object):
         ]
         return ships
 
-    def shot(self, x: int, y: int) -> ShotResultEnum:
+    def shot(self, x: int, y: int) -> Gun.ShotResultEnum:
         cell = Cell(x, y)
         # todo: try Except
-        return self._shot_manager.shot(cell)
+        return self._gun.shot(cell)
 
     def is_game_over(self) -> bool:
         return all([ship.is_destroyed() for ship in self.ships])

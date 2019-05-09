@@ -7,14 +7,13 @@ from battleship.ships_locator import ShipsLocator
 from battleship.cell import Cell
 
 
-class ShotResultEnum(Enum):
-    MISS = 0
-    SHIP_WOUNDED = 1
-    SHIP_DESTROYED = 2
-    ALREADY_SHOT = 3
+class Gun(object):
+    class ShotResultEnum(Enum):
+        MISS = 0
+        SHIP_WOUNDED = 1
+        SHIP_DESTROYED = 2
+        ALREADY_SHOT = 3
 
-
-class ShotManager(object):  # todo: rename fucking manager
     def __init__(
             self,
             battlefield: Battlefield,
@@ -40,9 +39,9 @@ class ShotManager(object):  # todo: rename fucking manager
             hited = ship_location.ship.hit(ship_cell_index)
 
             if not hited:
-                return ShotResultEnum.ALREADY_SHOT
+                return self.ShotResultEnum.ALREADY_SHOT
 
             if ship_location.ship.is_destroyed():
-                return ShotResultEnum.SHIP_DESTROYED
-            return ShotResultEnum.SHIP_WOUNDED
-        return ShotResultEnum.MISS
+                return self.ShotResultEnum.SHIP_DESTROYED
+            return self.ShotResultEnum.SHIP_WOUNDED
+        return self.ShotResultEnum.MISS
