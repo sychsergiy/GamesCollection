@@ -1,6 +1,6 @@
 from enum import Enum
 
-from battleship.location import Location
+from battleship.cell import Cell
 
 
 class BattlefieldCell(object):
@@ -48,27 +48,27 @@ class Battlefield(object):
     def cells(self) -> list:
         return self._cells_matrix
 
-    def _get_cell(self, location: Location) -> BattlefieldCell:
+    def _get_cell(self, location: Cell) -> BattlefieldCell:
         x, y = location.y, location.x
         # swap x and y coordinates to go to standard coordinate system
         return self._cells_matrix[x][y]
 
-    def set_cell_state_empty(self, location: Location):
+    def set_cell_state_empty(self, location: Cell):
         self._get_cell(location).set_state_empty()
 
-    def set_cell_state_with_ship(self, location: Location):
+    def set_cell_state_with_ship(self, location: Cell):
         self._get_cell(location).set_state_with_ship()
 
-    def is_location_inside(self, location: Location) -> bool:
+    def is_location_inside(self, location: Cell) -> bool:
         inside_x = 0 <= location.x < self.width
         inside_y = 0 <= location.y < self.height
         return inside_x and inside_y
 
-    def is_cell_with_ship(self, location: Location) -> bool:
+    def is_cell_with_ship(self, location: Cell) -> bool:
         cell = self._get_cell(location)
         return cell.is_with_ship()
 
-    def is_cell_empty(self, location: Location) -> bool:
+    def is_cell_empty(self, location: Cell) -> bool:
         cell = self._get_cell(location)
         return cell.is_empty()
 
