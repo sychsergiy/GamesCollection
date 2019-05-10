@@ -1,18 +1,18 @@
 import typing as t
 
-from battleship.battlefield_view import BattlefieldView
-from battleship.game_mode import GameMode
-from battleship.player import Player
-from battleship.ships_counter import ShipsCounter
-from battleship.gun import Gun
-from battleship.ships_locator import ShipsLocator
-from battleship.ship_locator import ShipLocator
-from battleship.ship_location import (
+from games_collection.games.battleship.battlefield_view import BattlefieldView
+from games_collection.games.battleship.game_mode import GameMode
+from games_collection.games.battleship.player import Player
+from games_collection.games.battleship.ships_counter import ShipsCounter
+from games_collection.games.battleship.gun import Gun
+from games_collection.games.battleship.ships_locator import ShipsLocator
+from games_collection.games.battleship.ship_locator import ShipLocator
+from games_collection.games.battleship.ship_location import (
     VerticalShipLocation,
     HorizontalShipLocation,
 )
-from battleship.ship import Ship
-from battleship.cell import Cell
+from games_collection.games.battleship.ship import Ship
+from games_collection.games.battleship.cell import Cell
 
 from enum import Enum
 
@@ -43,17 +43,15 @@ class PlayerBattlefield(object):
         )
         self._ships_counter = ShipsCounter(game_mode)
 
-        self._ready_to_start = False
+        self._ships_locating_finished = False
 
     def locate_ship(
             self,
-            x: int,
-            y: int,
+            cell: Cell,
             ship_size: int,
             rotation: ShipRotationEnum = ShipRotationEnum.HORIZONTAL
     ) -> bool:
         assert isinstance(rotation, ShipRotationEnum)
-        cell = Cell(x, y)
 
         ships_count = self._ships_counter.ships_with_size_left(ship_size)
         if ships_count == 0:
@@ -80,23 +78,22 @@ class PlayerBattlefield(object):
         ]
         return ships
 
-    def shot(self, x: int, y: int) -> Gun.ShotResultEnum:
-        cell = Cell(x, y)
-        # todo: try Except
+    def shot(self, cell: Cell) -> Gun.ShotResultEnum:
         return self._gun.shot(cell)
 
-    def is_all_ships_destroyed(self) -> bool:
+    @property
+    def all_ships_destroyed(self) -> bool:
         return all([ship.is_destroyed() for ship in self.ships])
 
     @property
-    def ready_to_start(self) -> bool:
-        return self._ready_to_start
+    def ships_locating_finished(self) -> bool:
+        return self._ships_locating_finished
 
-    def set_ready_to_start(self) -> bool:
+    def finish_ships_locating(self) -> bool:
         if not self._ships_counter.is_all_ships_retrieved():
             return False
         else:
-            self._ready_to_start = True
+            self._ships_locating_finished = True
             return True
 
     def get_battlefield_view(self, show_unwounded_ships_cells):

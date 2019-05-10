@@ -1,10 +1,10 @@
-from battleship.battlefield import Battlefield
-from battleship.cell import Cell
-from battleship.ship import Ship
-from battleship.ship_location import HorizontalShipLocation
-from battleship.ship_locator import ShipLocator
-from battleship.ships_locator import ShipsLocator
-from battleship.gun import Gun
+from games_collection.games.battleship.battlefield import Battlefield
+from games_collection.games.battleship.cell import Cell
+from games_collection.games.battleship.ship import Ship
+from games_collection.games.battleship.ship_location import HorizontalShipLocation
+from games_collection.games.battleship.ship_locator import ShipLocator
+from games_collection.games.battleship.ships_locator import ShipsLocator
+from games_collection.games.battleship.gun import Gun
 
 
 def test_horizontal_ship_location():

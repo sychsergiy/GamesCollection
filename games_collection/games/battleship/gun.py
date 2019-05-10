@@ -2,9 +2,9 @@ import typing as t
 
 from enum import Enum
 
-from battleship.battlefield import Battlefield
-from battleship.ships_locator import ShipsLocator
-from battleship.cell import Cell
+from games_collection.games.battleship.battlefield import Battlefield
+from games_collection.games.battleship.ships_locator import ShipsLocator
+from games_collection.games.battleship.cell import Cell
 
 
 class Gun(object):
