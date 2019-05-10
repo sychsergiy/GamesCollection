@@ -1,4 +1,4 @@
-from battleship.game_mode import GameMode
+from games_collection.games.battleship.game_mode import GameMode
 
 
 class ShipsCounter(object):

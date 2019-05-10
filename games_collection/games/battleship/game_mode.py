@@ -1,6 +1,6 @@
 import typing as t
 
-from battleship.battlefield import Battlefield
+from games_collection.games.battleship.battlefield import Battlefield
 
 
 class GameMode(t.NamedTuple):

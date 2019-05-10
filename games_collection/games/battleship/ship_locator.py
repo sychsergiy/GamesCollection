@@ -1,6 +1,6 @@
-from battleship.battlefield import Battlefield
-from battleship.ship_location import AbstractShipLocation
-from battleship.ships_locator import ShipsLocator
+from games_collection.games.battleship.battlefield import Battlefield
+from games_collection.games.battleship.ship_location import AbstractShipLocation
+from games_collection.games.battleship.ships_locator import ShipsLocator
 
 
 class ShipLocator(object):

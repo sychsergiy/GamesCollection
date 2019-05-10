@@ -1,18 +1,18 @@
 import typing as t
 
-from battleship.battlefield_view import BattlefieldView
-from battleship.game_mode import GameMode
-from battleship.player import Player
-from battleship.ships_counter import ShipsCounter
-from battleship.gun import Gun
-from battleship.ships_locator import ShipsLocator
-from battleship.ship_locator import ShipLocator
-from battleship.ship_location import (
+from games_collection.games.battleship.battlefield_view import BattlefieldView
+from games_collection.games.battleship.game_mode import GameMode
+from games_collection.games.battleship.player import Player
+from games_collection.games.battleship.ships_counter import ShipsCounter
+from games_collection.games.battleship.gun import Gun
+from games_collection.games.battleship.ships_locator import ShipsLocator
+from games_collection.games.battleship.ship_locator import ShipLocator
+from games_collection.games.battleship.ship_location import (
     VerticalShipLocation,
     HorizontalShipLocation,
 )
-from battleship.ship import Ship
-from battleship.cell import Cell
+from games_collection.games.battleship.ship import Ship
+from games_collection.games.battleship.cell import Cell
 
 from enum import Enum
 

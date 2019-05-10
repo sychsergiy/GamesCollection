@@ -1,5 +1,5 @@
 import typing as t
-from battleship.cell import Cell
+from games_collection.games.battleship.cell import Cell
 
 
 class Battlefield(object):

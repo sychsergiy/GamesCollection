@@ -2,8 +2,8 @@ import typing as t
 
 from enum import Enum
 
-from battleship.cell import Cell
-from battleship.ship import Ship
+from games_collection.games.battleship.cell import Cell
+from games_collection.games.battleship.ship import Ship
 
 
 class ShipRotationEnum(Enum):
