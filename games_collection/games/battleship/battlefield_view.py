@@ -11,17 +11,16 @@ class BattlefieldView(object):
             ships_locator: ShipsLocator,
             shot_manager: Gun
     ):
+        self._battlefield = battlefield
         self._ships_locator = ships_locator
         self._shot_manager = shot_manager
-
         self._battlefield_matrix = None
-        self._draw_empty_cells(battlefield)
 
-    def _draw_empty_cells(self, battlefield: Battlefield):
+    def _draw_empty_cells(self):
         self._battlefield_matrix = [
             # empty cells
-            [' 0 ' for _ in range(battlefield.width)]
-            for _ in range(battlefield.height)
+            [' 0 ' for _ in range(self._battlefield.width)]
+            for _ in range(self._battlefield.height)
         ]
 
     def _get_matrix_cell(self, cell: Cell):
@@ -55,10 +54,8 @@ class BattlefieldView(object):
                     self._set_matrix_cell(ship_cell, '[*]')
 
     def draw(self, show_unwounded_ships_cells: bool):
-        # self._draw_empty_cells() // already called in __init__ todo: refactor
+        self._draw_empty_cells()
         self._draw_hited_cells()
         self._draw_ships(show_unwounded_ships_cells)
-
-    @property
-    def battlefield_matrix(self):
         return self._battlefield_matrix
+

@@ -64,8 +64,6 @@ class BattleshipField(object):
             self._ships_counter.retrieve_ship(ship_size)
         return ship_located
 
-    # todo: add relocate ships method
-
     @property
     def ships(self) -> t.List[Ship]:
         ships = [
@@ -94,5 +92,4 @@ class BattleshipField(object):
 
     def get_battlefield_view(self, show_unwounded_ships_cells):
         # todo: remove method from current class
-        self._view.draw(show_unwounded_ships_cells)
-        return self._view.battlefield_matrix
+        return self._view.draw(show_unwounded_ships_cells)
