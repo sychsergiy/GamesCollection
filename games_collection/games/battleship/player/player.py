@@ -41,7 +41,7 @@ class BattleshipPlayer(object):
         opponent_battleship_field = self._get_opponent_battleship_field()
         if not opponent_battleship_field.ships_locating_finished:
             raise OpponentShipsNotLocatedException("Opponent ships not located")
-        if not self._battleship_game.is_player_turn(self):
+        if not self.is_your_turn():
             raise OpponentTurnException("It is opponent turn now")
         self._battleship_game.finish_current_player_turn()
 
@@ -56,7 +56,7 @@ class BattleshipPlayer(object):
         return shot_result
 
     def is_your_turn(self):
-        return self._battleship_game
+        return self._battleship_game.is_player_turn(self)
 
     def get_battlefield_view(self) -> list:
         return self._get_battleship_field().get_battlefield_view(True)

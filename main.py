@@ -45,12 +45,12 @@ for i in range(0, 8):
     for j in range(0, 8):
         try:
             shot_result_1 = player1.shot(Cell(i, j))
+            print(f"First player shot result: {shot_result_1}")
             shot_result_2 = player2.shot(Cell(i, j))
-            # print(f"First player shot result: {shot_result_1}")
-            # print(f"Second player shot result: {shot_result_2}")
+            print(f"Second player shot result: {shot_result_2}")
         except GameOverException:
             print(battleship_game.get_result_info())
             print_battlefield(player1.get_battlefield_view())
             print()
-            print_battlefield(player1.get_opponent_battlefield_view())
+            print_battlefield(player2.get_battlefield_view())
             break

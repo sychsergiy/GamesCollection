@@ -67,9 +67,9 @@ class BattleshipGame(AbstractGame):
     ) -> BattleshipField:
         self.check_player_connected()
         if battleship_player.player.id == self._first_player.id:
-            return self._first_player_battlefield
-        elif battleship_player.player.id == self._second_player.id:
             return self._second_player_battlefield
+        elif battleship_player.player.id == self._second_player.id:
+            return self._first_player_battlefield
 
     def connect_player(self, battleship_player: BattleshipPlayer):
         if not self._first_player:
