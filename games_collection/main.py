@@ -1,5 +1,5 @@
 from games_collection.games_collection import GamesCollection
-from games_collection.games.battleship.battleship_game import BattleshipGame
+from games_collection.games.battleship.game.game import BattleshipGame
 
 games_collection = GamesCollection([BattleshipGame])
 

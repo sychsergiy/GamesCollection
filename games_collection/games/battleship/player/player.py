@@ -10,8 +10,9 @@ class BattleshipPlayer(object):
         self.player = player
         self._battleship_game = None
 
-    def _connect_to_game(self, battleship_game):
-        self._battleship_game = battleship_game
+    def connect_to_game(self, battleship_game):
+        if not self._battleship_game:
+            self._battleship_game = battleship_game
 
     def locate_ship(self, cell: Cell, ship_size: int) -> bool:
         battlefield = self._battleship_game.get_player_battleship_field(self)

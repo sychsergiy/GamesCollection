@@ -64,8 +64,6 @@ class BattleshipField(object):
             self._ships_counter.retrieve_ship(ship_size)
         return ship_located
 
-    # todo: add relocate ships method
-
     @property
     def ships(self) -> t.List[Ship]:
         ships = [

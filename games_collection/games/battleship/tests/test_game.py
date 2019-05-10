@@ -4,8 +4,8 @@ from games_collection.games.battleship.battlefield import Battlefield
 from games_collection.games.battleship.cell import Cell
 from games_collection.games.battleship.gun import Gun
 from games_collection.games.battleship.game_mode import GameMode
-from games_collection.games.battleship.battleship_game import BattleshipGame
-from games_collection.games.battleship.battleship_player import BattleshipPlayer
+from games_collection.games.battleship.game.game import BattleshipGame
+from games_collection.games.battleship.player.player import BattleshipPlayer
 from games_collection.player import Player
 
 

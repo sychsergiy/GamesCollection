@@ -1,4 +1,4 @@
-from games_collection.games.battleship.battleship_player import BattleshipPlayer
+from games_collection.games.battleship.player.player import BattleshipPlayer
 from games_collection.games.battleship.game_mode import GameMode
 from games_collection.games.battleship.battleship_field import (
     BattleshipField
@@ -60,10 +60,10 @@ class BattleshipGame(AbstractGame):
         if not self._first_player:
             self._first_player = battleship_player.player
             self._current_turn_player_id = self._first_player.id
-            battleship_player._connect_to_game(self)
+            battleship_player.connect_to_game(self)
         elif not self._second_player:
             self._second_player = battleship_player.player
-            battleship_player._connect_to_game(self)
+            battleship_player.connect_to_game(self)
         else:
             raise Exception("Players already connected")
 
