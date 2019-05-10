@@ -27,19 +27,31 @@ class Game(object):
             self._first_player_turn = not self._first_player_turn
             return self._player_turn(self._second_player_battlefield, x, y)
 
-    def print_battlefields(self):
-        # todo: get matrix and return
+    def get_current_turn_player_battlefield(self):
         if self._first_player_turn:
-            self._first_player_battlefield.print_battlefield_view(True)
-            print('')
-            self._second_player_battlefield.print_battlefield_view(False)
+            return self._first_player_battlefield.get_battlefield_view(True)
         else:
-            self._second_player_battlefield.print_battlefield_view(True)
-            print('')
-            self._first_player_battlefield.print_battlefield_view(False)
+            return self._second_player_battlefield.get_battlefield_view(True)
 
+    def get_current_turn_player_opponent_battlefield(self):
+        if self._first_player_turn:
+            return self._first_player_battlefield.get_battlefield_view(False)
+        else:
+            return self._second_player_battlefield.get_battlefield_view(False)
+
+    # def print_battlefields(self):
+    #     # todo: get matrix and return
+    #     if self._first_player_turn:
+    #         self._first_player_battlefield.get_battlefield_view(True)
+    #         print('')
+    #         self._second_player_battlefield.get_battlefield_view(False)
+    #     else:
+    #         self._second_player_battlefield.get_battlefield_view(True)
+    #         print('')
+    #         self._first_player_battlefield.get_battlefield_view(False)
+
+    @staticmethod
     def _player_turn(
-            self,
             player_battlefield: PlayerBattlefield,
             x: int,
             y: int,

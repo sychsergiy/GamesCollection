@@ -99,8 +99,7 @@ class PlayerBattlefield(object):
             self._ready_to_start = True
             return True
 
-    def print_battlefield_view(self, show_unwounded_ships_cells):
+    def get_battlefield_view(self, show_unwounded_ships_cells):
         # todo: remove method from current class
         self._view.draw(show_unwounded_ships_cells)
-        for row in self._view.battlefield_matrix:
-            print(row)
+        return self._view.battlefield_matrix
