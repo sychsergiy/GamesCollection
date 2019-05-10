@@ -6,7 +6,7 @@ from games_collection.games.battleship.gun import Gun
 from games_collection.games.battleship.game_mode import GameMode
 from games_collection.games.battleship.battleship_game import BattleshipGame
 from games_collection.games.battleship.battleship_player import BattleshipPlayer
-from games_collection.games.battleship.player import Player
+from games_collection.player import Player
 
 
 def test_player_battlefield_ready_to_start():
@@ -33,12 +33,23 @@ def test_player_battlefield_ready_to_start():
     assert player2.finish_ships_locating_step() == True
     assert player2.ships_locating_step_finished() == True
 
+    with pytest.raises(Exception):  # game not finished exception
+        game.get_result_info()
+
     assert player1.shot(Cell(0, 0)) == Gun.ShotResultEnum.SHIP_DESTROYED
     assert player2.shot(Cell(0, 0)) == Gun.ShotResultEnum.SHIP_DESTROYED
 
     with pytest.raises(Exception):  # it is not your turn exception
         assert player2.shot(Cell(1, 0)) == Gun.ShotResultEnum.MISS
 
-    with pytest.raises(Exception):
-        # todo: game over exception
+    with pytest.raises(Exception):  # game over exception
         assert player1.shot(Cell(3, 3)) == Gun.ShotResultEnum.SHIP_DESTROYED
+
+    assert game.winner == player1.player
+    assert game.looser == player2.player
+
+    expected_result = {
+        'winner': player1.player,
+        'looser': player2.player
+    }
+    assert expected_result == game.get_result_info()

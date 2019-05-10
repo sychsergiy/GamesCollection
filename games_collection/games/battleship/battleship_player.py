@@ -1,7 +1,7 @@
 from games_collection.games.battleship.battleship_field import BattleshipField
 from games_collection.games.battleship.cell import Cell
 from games_collection.games.battleship.gun import Gun
-from games_collection.games.battleship.player import Player
+from games_collection.player import Player
 
 
 class BattleshipPlayer(object):
@@ -40,6 +40,8 @@ class BattleshipPlayer(object):
         if shot_result == Gun.ShotResultEnum.SHIP_DESTROYED:
             is_game_over = opponent_battleship_field.all_ships_destroyed
             if is_game_over:
+                self._battleship_game.finish()
+                self._battleship_game.set_winner(self)
                 raise Exception("Game over")
 
         return shot_result
