@@ -92,5 +92,4 @@ class BattleshipField(object):
 
     def get_battlefield_view(self, show_unwounded_ships_cells):
         # todo: remove method from current class
-        self._view.draw(show_unwounded_ships_cells)
-        return self._view.battlefield_matrix
+        return self._view.draw(show_unwounded_ships_cells)
