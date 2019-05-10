@@ -17,3 +17,10 @@ class PlayerShipsNotLocatedException(BattleshipPlayerException):
 class OpponentShipsNotLocatedException(BattleshipPlayerException):
     pass
 
+
+class OpponentTurnException(BattleshipPlayerException):
+    pass
+
+
+class GameOverException(BattleshipPlayerException):
+    pass

@@ -2,10 +2,6 @@ class BattleshipGameException(Exception):
     pass
 
 
-class GameOverException(BattleshipGameException):
-    pass
-
-
 class PlayerNotConnectedException(BattleshipGameException):
     pass
 

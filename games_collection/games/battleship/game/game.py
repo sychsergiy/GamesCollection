@@ -6,6 +6,12 @@ from games_collection.games.battleship.battleship_field import (
 from games_collection.game import AbstractGame
 from games_collection.player import Player
 
+from .exceptions import (
+    GameNotFinishedException,
+    PlayersAlreadyConnectedException,
+    PlayerNotConnectedException,
+)
+
 
 class BattleshipGame(AbstractGame):
     title = "Battleship"
@@ -34,9 +40,13 @@ class BattleshipGame(AbstractGame):
 
     def check_player_connected(self):
         if not self._first_player:
-            raise Exception("First player not connected")
+            raise PlayerNotConnectedException(
+                "First player not connected"
+            )
         if not self._second_player:
-            raise Exception("Second player not connected")
+            raise PlayerNotConnectedException(
+                "Second player not connected"
+            )
 
     def get_player_battleship_field(
             self, battleship_player: BattleshipPlayer
@@ -65,12 +75,15 @@ class BattleshipGame(AbstractGame):
             self._second_player = battleship_player.player
             battleship_player.connect_to_game(self)
         else:
-            raise Exception("Players already connected")
+            raise PlayersAlreadyConnectedException(
+                "Players already connected"
+            )
 
     def get_result_info(self) -> dict:
         if not self.finished:
-            raise Exception("Game not finished, can't set winner")
-
+            raise GameNotFinishedException(
+                "Game not finished, can't set winner"
+            )
         result = {
             'winner': self._winner,
             'looser': self._looser,
