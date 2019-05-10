@@ -5,6 +5,7 @@ from battleship.gun import Gun
 from battleship.game_mode import GameMode
 from battleship.player import Player
 from battleship.game import Game
+from battleship.game import GameOverException, ShipsLocatingStepNotFinished
 
 
 def test_player_battlefield_ready_to_start():
@@ -16,14 +17,14 @@ def test_player_battlefield_ready_to_start():
         game_mode,
     )
 
-    with pytest.raises(Exception):
+    with pytest.raises(ShipsLocatingStepNotFinished):
         game.next_hit(0, 0)
     assert game.first_player_finish_ships_locating_step == False
     assert game.first_player_locate_ship(0, 0, 1) == True
     assert game.first_player_locate_ship(3, 3, 1) == True
     assert game.first_player_finish_ships_locating_step == True
 
-    with pytest.raises(Exception):
+    with pytest.raises(ShipsLocatingStepNotFinished):
         game.next_hit(0, 0)
     assert game.second_player_finish_ships_locating_step == False
     assert game.second_player_locate_ship(0, 0, 1) == True
@@ -35,5 +36,5 @@ def test_player_battlefield_ready_to_start():
 
     assert game.next_hit(2, 2) == Gun.ShotResultEnum.MISS
 
-    with pytest.raises(Exception):
+    with pytest.raises(GameOverException):
         assert game.next_hit(3, 3)
