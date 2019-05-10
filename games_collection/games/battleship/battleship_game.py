@@ -15,6 +15,15 @@ class BattleshipGame(object):
         self._first_player_battlefield = BattleshipField(game_mode)
         self._second_player_battlefield = BattleshipField(game_mode)
 
+    def is_player_turn(self, battleship_player: BattleshipPlayer):
+        return self._current_turn_player_id == battleship_player.player.id
+
+    def finish_current_player_turn(self):
+        if self._current_turn_player_id == self._first_player_id:
+            self._current_turn_player_id = self._second_player_id
+        elif self._current_turn_player_id == self._second_player_id:
+            self._current_turn_player_id = self._first_player_id
+
     def check_player_connected(self):
         if not self._first_player_id:
             raise Exception("First player not connected")
@@ -41,8 +50,8 @@ class BattleshipGame(object):
 
     def connect_player(self, battleship_player: BattleshipPlayer):
         if not self._first_player_id:
-            # todo: change name on unique field
             self._first_player_id = battleship_player.player.id
+            self._current_turn_player_id = self._first_player_id
             battleship_player._connect_to_game(self)
         elif not self._second_player_id:
             self._second_player_id = battleship_player.player.id

@@ -32,12 +32,20 @@ class BattleshipPlayer(object):
         opponent_battleship_field = self._get_opponent_battleship_field()
         if not opponent_battleship_field.ships_locating_finished:
             raise Exception("Opponent ships not located")
+        if not self._battleship_game.is_player_turn(self):
+            raise Exception("It is opponent turn now")
+        self._battleship_game.finish_current_player_turn()
+
         shot_result = opponent_battleship_field.shot(cell)
         if shot_result == Gun.ShotResultEnum.SHIP_DESTROYED:
             is_game_over = opponent_battleship_field.all_ships_destroyed
             if is_game_over:
                 raise Exception("Game over")
+
         return shot_result
+
+    def is_your_turn(self):
+        return self._battleship_game
 
     def get_battlefield_view(self) -> list:
         return self._get_battleship_field().get_battlefield_view(True)

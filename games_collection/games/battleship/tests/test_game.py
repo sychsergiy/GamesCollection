@@ -33,10 +33,11 @@ def test_player_battlefield_ready_to_start():
     assert player2.finish_ships_locating_step() == True
     assert player2.ships_locating_step_finished() == True
 
-    # todo: handle player turns
     assert player1.shot(Cell(0, 0)) == Gun.ShotResultEnum.SHIP_DESTROYED
     assert player2.shot(Cell(0, 0)) == Gun.ShotResultEnum.SHIP_DESTROYED
-    assert player2.shot(Cell(1, 0)) == Gun.ShotResultEnum.MISS
+
+    with pytest.raises(Exception):  # it is not your turn exception
+        assert player2.shot(Cell(1, 0)) == Gun.ShotResultEnum.MISS
 
     with pytest.raises(Exception):
         # todo: game over exception
