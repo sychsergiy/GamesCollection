@@ -8,6 +8,8 @@ from games_collection.player import Player
 
 
 class BattleshipGame(AbstractGame):
+    title = "Battleship"
+
     def __init__(self, game_mode: GameMode):
         super(BattleshipGame, self).__init__()
         self._first_player = None

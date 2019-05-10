@@ -1,4 +1,6 @@
 class AbstractGame(object):
+    title = None
+
     def __init__(self):
         self._finished = False
 
