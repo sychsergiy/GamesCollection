@@ -1,7 +1,10 @@
 import typing as t
 
-from battleship.battlefield import Battlefield
-from battleship.shot_manager import ShotManager, ShotResultEnum
+from battleship.battlefield_view import BattlefieldView
+from battleship.game_mode import GameMode
+from battleship.player import Player
+from battleship.ships_counter import ShipsCounter
+from battleship.gun import Gun
 from battleship.ships_locator import ShipsLocator
 from battleship.ship_locator import ShipLocator
 from battleship.ship_location import (
@@ -20,44 +23,54 @@ class ShipRotationEnum(Enum):
 
 
 class PlayerBattlefield(object):
-    def __init__(self, battlefield_width: int, battlefield_height: int):
-        self._battlefield = Battlefield(battlefield_width, battlefield_height)
-        self._ships_locator = ShipsLocator(self._battlefield)
-        self._shot_manager = ShotManager(self._ships_locator)
-        self._ship_locator = ShipLocator(self._battlefield, self._ships_locator)
+    def __init__(
+            self,
+            player: Player,
+            game_mode: GameMode,
 
-        self._view = BattlefieldView(
-            self._battlefield, self._ships_locator, self._shot_manager
+    ):
+        # todo: move all class to arguments
+        self._player = player
+        self._ships_locator = ShipsLocator(game_mode.battlefield)
+        self._gun = Gun(
+            game_mode.battlefield, self._ships_locator
         )
+        self._ship_locator = ShipLocator(
+            game_mode.battlefield, self._ships_locator
+        )
+        self._view = BattlefieldView(
+            game_mode.battlefield, self._ships_locator, self._gun
+        )
+        self._ships_counter = ShipsCounter(game_mode)
 
-        self._locate_ships()
-
-    def _locate_ships(self):
-        ships_locations = [
-            VerticalShipLocation(Ship(2), Cell(0, 0)),
-            VerticalShipLocation(Ship(1), Cell(4, 4)),
-            VerticalShipLocation(Ship(1), Cell(4, 0)),
-            VerticalShipLocation(Ship(1), Cell(0, 4)),
-        ]
-        self._ships = [ship_location.ship for ship_location in ships_locations]
-        for ship_location in ships_locations:
-            self._ship_locator.locate_ship(ship_location)
+        self._ready_to_start = False
 
     def locate_ship(
             self,
             x: int,
             y: int,
-            size: int,
+            ship_size: int,
             rotation: ShipRotationEnum = ShipRotationEnum.HORIZONTAL
     ) -> bool:
         assert isinstance(rotation, ShipRotationEnum)
         cell = Cell(x, y)
-        ship = Ship(size)
+
+        ships_count = self._ships_counter.ships_with_size_left(ship_size)
+        if ships_count == 0:
+            return False
+
+        ship = Ship(ship_size)
         if rotation == ShipRotationEnum.VERTICAL:
             ship_location = VerticalShipLocation(ship, cell)
         elif rotation == ShipRotationEnum.HORIZONTAL:
             ship_location = HorizontalShipLocation(ship, cell)
-        return self._ship_locator.locate_ship(ship_location)
+
+        ship_located = self._ship_locator.locate_ship(ship_location)
+        if ship_located:
+            self._ships_counter.retrieve_ship(ship_size)
+        return ship_located
+
+    # todo: add relocate ships method
 
     @property
     def ships(self) -> t.List[Ship]:
@@ -67,77 +80,26 @@ class PlayerBattlefield(object):
         ]
         return ships
 
-    def shot(self, x: int, y: int) -> ShotResultEnum:
+    def shot(self, x: int, y: int) -> Gun.ShotResultEnum:
         cell = Cell(x, y)
-        if not self._battlefield.is_cell_internal(cell):
-            raise Exception('cell outside battlefield')
-        return self._shot_manager.shot(cell)
+        # todo: try Except
+        return self._gun.shot(cell)
 
-    def is_game_over(self) -> bool:
+    def is_all_ships_destroyed(self) -> bool:
         return all([ship.is_destroyed() for ship in self.ships])
 
-    def print_battlefield_view(self, show_unwounded_ships_cells):
+    @property
+    def ready_to_start(self) -> bool:
+        return self._ready_to_start
+
+    def set_ready_to_start(self) -> bool:
+        if not self._ships_counter.is_all_ships_retrieved():
+            return False
+        else:
+            self._ready_to_start = True
+            return True
+
+    def get_battlefield_view(self, show_unwounded_ships_cells):
         # todo: remove method from current class
         self._view.draw(show_unwounded_ships_cells)
-        for row in self._view.battlefield_matrix:
-            print(row)
-
-
-class BattlefieldView(object):
-    def __init__(
-            self,
-            battlefield: Battlefield,
-            ships_locator: ShipsLocator,
-            shot_manager: ShotManager
-    ):
-        self._ships_locator = ships_locator
-        self._shot_manager = shot_manager
-
-        self._battlefield_matrix = None
-        self._draw_empty_cells(battlefield)
-
-    def _draw_empty_cells(self, battlefield: Battlefield):
-        self._battlefield_matrix = [
-            # empty cells
-            ['0' for _ in range(battlefield.width)]
-            for _ in range(battlefield.height)
-        ]
-
-    def _get_matrix_cell(self, cell: Cell):
-        # swap (x,y) coordinates to go to the standard coordinate system
-        return self._battlefield_matrix[cell.y][cell.x]
-
-    def _set_matrix_cell(self, cell: Cell, value):
-        # swap (x,y) coordinates to go to the standard coordinate system
-        self._battlefield_matrix[cell.y][cell.x] = value
-
-    def _draw_hited_cells(self):
-        for cell in self._shot_manager.hited_cells:
-            self._set_matrix_cell(cell, '1')
-
-    def _draw_ships(self, show_unwounded_ships_cells: bool):
-        for ship_location in self._ships_locator.ships_locations:
-            if ship_location.ship.is_destroyed():
-                for cell in ship_location.get_ship_cells():
-                    # destroyed ships
-                    self._set_matrix_cell(cell, '2')
-            else:
-                ship_cells = ship_location.get_ship_cells()
-                if show_unwounded_ships_cells:
-                    for cell in ship_cells:
-                        # unwounded ship cells
-                        self._set_matrix_cell(cell, '3')
-
-                for index in ship_location.ship.get_destroyed_cells_indexes():
-                    ship_cell = ship_cells[index]
-                    # wounded but not destroyed ship cells
-                    self._set_matrix_cell(ship_cell, '4')
-
-    def draw(self, show_unwounded_ships_cells: bool):
-        # self._draw_empty_cells() // already called in __init__ todo: refactor
-        self._draw_hited_cells()
-        self._draw_ships(show_unwounded_ships_cells)
-
-    @property
-    def battlefield_matrix(self):
-        return self._battlefield_matrix
+        return self._view.battlefield_matrix
