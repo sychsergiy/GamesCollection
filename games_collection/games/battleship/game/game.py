@@ -18,6 +18,8 @@ class BattleshipGame(AbstractGame):
 
     def __init__(self, game_mode: GameMode):
         super(BattleshipGame, self).__init__()
+        self._game_mode = game_mode
+
         self._first_player = None
         self._second_player = None
 
@@ -28,6 +30,9 @@ class BattleshipGame(AbstractGame):
 
         self._winner = None
         self._looser = None
+
+    def __copy__(self):
+        return BattleshipGame(self._game_mode)
 
     def is_player_turn(self, battleship_player: BattleshipPlayer):
         return self._current_turn_player_id == battleship_player.player.id

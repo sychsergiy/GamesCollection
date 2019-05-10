@@ -13,3 +13,6 @@ class AbstractGame(object):
 
     def get_result_info(self) -> dict:
         raise NotImplementedError
+
+    def __copy__(self):
+        raise NotImplementedError
