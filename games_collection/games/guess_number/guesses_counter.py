@@ -1,4 +1,4 @@
-class Counter(object):
+class GuessesCounter(object):
     def __init__(self, guesses: int = 0, misses: int = 0):
         self._guesses = guesses
         self._misses = misses
