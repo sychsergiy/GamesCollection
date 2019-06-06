@@ -1,2 +1,0 @@
-class AbstractGameData(object):
-    pass

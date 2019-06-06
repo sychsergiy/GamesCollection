@@ -1,5 +1,3 @@
-from games_collection.game_data import AbstractGameData
-from games_collection.game_player import AbstractGamePlayer
 from games_collection.player import Player
 
 from games_collection.games.battleship.game.game import BattleshipGame
@@ -17,11 +15,11 @@ from .exceptions import (
 )
 
 
-class BattleshipPlayer(AbstractGamePlayer):
+class BattleshipPlayer(object):
     def __init__(self, player: Player, game: BattleshipGame):
         # todo: remove this and use AbstractGameData(inherit new class)
         #  instead of game directly
-        super(BattleshipPlayer, self).__init__(AbstractGameData())
+        super(BattleshipPlayer, self).__init__()
         self.player = player
         self._battleship_game = game
 
@@ -58,7 +56,6 @@ class BattleshipPlayer(AbstractGamePlayer):
         if shot_result == Gun.ShotResultEnum.SHIP_DESTROYED:
             is_game_over = opponent_battleship_field.all_ships_destroyed
             if is_game_over:
-                self._battleship_game.finish()
                 raise GameOverException("Game over, you win!")
 
         return shot_result
