@@ -17,11 +17,10 @@ class AbstractActionHandler(object):
             raise Exception(
                 f"Expected action: {self.action_class}, got: {type(action)}"
             )
-        raise NotImplementedError
 
 
 class ActionRegister(t.NamedTuple):
-    action_class: t.ClassVar[AbstractAction]
+    action_class: AbstractAction
     action_handler: AbstractActionHandler
 
 
@@ -42,7 +41,7 @@ class ActionsHandlerRegister(object):
 
     def _is_action_registered(self, action):
         action_class = type(action)
-        return action_class not in self._actions_handlers_map.keys()
+        return action_class in self._actions_handlers_map.keys()
 
     def handle_action(self, action: AbstractAction):
         if not self._is_action_registered(action):

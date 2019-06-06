@@ -51,6 +51,7 @@ class TryToGuessActionHandler(AbstractActionHandler):
             self._number_to_guess.update()
         else:
             player_counter.increment_misses()
+        self._match.finish_current_player_turn()
         left_to_guess = (
                 self._settings.guess_times_to_winn - player_counter.guesses
         )

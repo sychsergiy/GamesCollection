@@ -2,7 +2,11 @@ from games_collection.match import PlayerVsPlayerMatch
 from games_collection.game_player import AbstractGamePlayer
 from games_collection.player import Player
 from games_collection.settings import AbstractGameSettings
-from games_collection.actions_handler import ActionsHandlerRegister
+from games_collection.actions_handler import (
+    ActionsHandlerRegister,
+    AbstractActionResult,
+    AbstractAction,
+)
 
 
 class AbstractGame(object):
@@ -13,9 +17,13 @@ class AbstractGame(object):
     ):
         self._match = match
         self._settings = settings
-        self.actions_handler = ActionsHandlerRegister()
+        self._actions_handler = ActionsHandlerRegister()
+        self._register_actions_handlers()
 
-    def register_actions_handlers(self):
+    def send_action(self, action: AbstractAction) -> AbstractActionResult:
+        return self._actions_handler.handle_action(action)
+
+    def _register_actions_handlers(self):
         raise NotImplementedError
 
     def is_player_turn(self, player: Player) -> bool:
