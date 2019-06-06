@@ -47,14 +47,16 @@ class TryToGuessActionHandler(AbstractActionHandler):
         if action.number == self._number_to_guess.get_number():
             player_counter.increment_guesses()
             self._number_to_guess.update()
+            guessed = True
         else:
+            guessed = False
             player_counter.increment_misses()
         self._match.finish_current_player_turn()
         left_to_guess = (
             self._settings.guess_times_to_winn - player_counter.guesses
         )
         action_result = TryToGuessActionResult(
-            guessed=True,
+            guessed=guessed,
             left_to_guess=left_to_guess,
             guessed_times=player_counter.guesses,
             missed_times=player_counter.misses,

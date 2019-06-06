@@ -44,7 +44,7 @@ class ActionsHandlerRegister(object):
         action_class = type(action)
         return action_class in self._actions_handlers_map.keys()
 
-    def handle_action(self, action: AbstractAction):
+    def handle_action(self, action: AbstractAction) -> AbstractActionResult:
         if not self._is_action_registered(action):
             raise Exception(f"not registered action: {type(action)}")
         handler = self._get_action_handler(action)

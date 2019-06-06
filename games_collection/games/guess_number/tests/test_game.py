@@ -1,3 +1,5 @@
+import pytest
+
 from games_collection.games.guess_number.game import GuessNumberGame
 from games_collection.games.guess_number.settings import GuessNumberSettings
 from games_collection.match import PlayerVsPlayerMatch
@@ -13,5 +15,9 @@ def test_game():
     settings = GuessNumberSettings(2)
     game = GuessNumberGame(match, settings)
 
-    game.send_action(TryToGuessAction(player1, 1))
-    game.send_action(TryToGuessAction(player1, 1))
+    result = game.send_action(TryToGuessAction(player1, 1))
+    assert result.guessed == False
+    game.send_action(TryToGuessAction(player2, 1))
+
+    with pytest.raises(Exception):
+        game.send_action(TryToGuessAction(player2, 1))

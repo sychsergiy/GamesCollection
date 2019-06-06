@@ -37,3 +37,6 @@ class BattleshipGame(AbstractGame):
             if key != player.id:
                 return value
         raise Exception("Opponent battleship ship field doesn't exists")
+
+    def _register_actions_handlers(self):
+        pass
