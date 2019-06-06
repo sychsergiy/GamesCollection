@@ -9,12 +9,11 @@ from .exceptions import (
     PlayerNotConnectedToGameException,
     PlayerShipsNotLocatedException,
     OpponentTurnException,
-    GameOverException
+    GameOverException,
 )
 
 
 class BattleshipPlayer(object):
-
     def __init__(self, player: Player, game: BattleshipGame):
         self.player = player
         self._battleship_game = game
@@ -71,15 +70,11 @@ class BattleshipPlayer(object):
             raise PlayerNotConnectedToGameException(
                 "Player not connected to game"
             )
-        return self._battleship_game.get_player_battleship_field(
-            self.player
-        )
+        return self._battleship_game.get_player_battleship_field(self.player)
 
     def _get_opponent_battleship_field(self) -> BattleshipField:
         if not self._battleship_game:
             raise OpponentNotConnectedToGameException(
                 "Opponent not connected to game"
             )
-        return self._battleship_game.get_opponent_battleship_field(
-            self.player
-        )
+        return self._battleship_game.get_opponent_battleship_field(self.player)

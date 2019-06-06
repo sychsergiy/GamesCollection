@@ -15,10 +15,10 @@ class Gun(object):
         ALREADY_SHOT = 3
 
     def __init__(
-            self,
-            battlefield: Battlefield,
-            ships_locator: ShipsLocator,
-            hited_cells: t.Set[Cell] = None
+        self,
+        battlefield: Battlefield,
+        ships_locator: ShipsLocator,
+        hited_cells: t.Set[Cell] = None,
     ):
         self._battlefield = battlefield
         self._ships_locator = ships_locator
@@ -30,7 +30,7 @@ class Gun(object):
 
     def shot(self, cell: Cell) -> ShotResultEnum:
         if not self._battlefield.is_cell_internal(cell):
-            raise Exception('cell outside battlefield')
+            raise Exception("cell outside battlefield")
 
         ship_location = self._ships_locator.get_ship_location_by_cell(cell)
         self._hited_cells.add(cell)

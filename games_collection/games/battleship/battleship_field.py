@@ -22,15 +22,9 @@ class ShipRotationEnum(Enum):
 
 
 class BattleshipField(object):
-    def __init__(
-            self,
-            game_mode: GameMode,
-
-    ):
+    def __init__(self, game_mode: GameMode):
         self._ships_locator = ShipsLocator(game_mode.battlefield)
-        self._gun = Gun(
-            game_mode.battlefield, self._ships_locator
-        )
+        self._gun = Gun(game_mode.battlefield, self._ships_locator)
         self._ship_locator = ShipLocator(
             game_mode.battlefield, self._ships_locator
         )
@@ -42,10 +36,10 @@ class BattleshipField(object):
         self._ships_locating_finished = False
 
     def locate_ship(
-            self,
-            cell: Cell,
-            ship_size: int,
-            rotation: ShipRotationEnum = ShipRotationEnum.HORIZONTAL
+        self,
+        cell: Cell,
+        ship_size: int,
+        rotation: ShipRotationEnum = ShipRotationEnum.HORIZONTAL,
     ) -> bool:
         assert isinstance(rotation, ShipRotationEnum)
 
@@ -67,8 +61,8 @@ class BattleshipField(object):
     @property
     def ships(self) -> t.List[Ship]:
         ships = [
-            ship_location.ship for ship_location in
-            self._ships_locator.ships_locations
+            ship_location.ship
+            for ship_location in self._ships_locator.ships_locations
         ]
         return ships
 

@@ -1,7 +1,7 @@
 from games_collection.games.battleship.battlefield import Battlefield
 from games_collection.games.battleship.ship_location import (
     HorizontalShipLocation,
-    VerticalShipLocation
+    VerticalShipLocation,
 )
 from games_collection.games.battleship.ship_locator import ShipLocator
 from games_collection.games.battleship.ships_locator import ShipsLocator

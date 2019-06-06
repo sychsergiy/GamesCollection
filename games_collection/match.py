@@ -3,9 +3,7 @@ from games_collection.player import Player
 
 class PlayerVsPlayerMatch(object):
     def __init__(
-            self,
-            first_player: Player = None,
-            second_player: Player = None,
+        self, first_player: Player = None, second_player: Player = None
     ):
         self.first_player = first_player
         self.second_player = second_player

@@ -34,7 +34,8 @@ class ShipsLocator(object):
                 ship_location.get_cells_around()
             )
         cells_around_ships_inside_battlefield = {
-            cell for cell in cells_around_ships
+            cell
+            for cell in cells_around_ships
             if self._battlefield.is_cell_internal(cell)
         }
         return cells_around_ships_inside_battlefield
@@ -46,7 +47,7 @@ class ShipsLocator(object):
         return self.get_ship_location_by_cell(cell).ship
 
     def get_ship_location_by_cell(
-            self, cell: Cell
+        self, cell: Cell
     ) -> t.Union[None, AbstractShipLocation]:
         for ship_location in self._ships_locations:
             if ship_location.is_ship_on_cell(cell):

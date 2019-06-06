@@ -13,7 +13,7 @@ from games_collection.games.battleship.player.exceptions import (
 )
 from games_collection.games.battleship.game.exceptions import (
     GameNotFinishedException,
-    PlayersAlreadyConnectedException
+    PlayersAlreadyConnectedException,
 )
 
 
@@ -59,8 +59,5 @@ def test_player_battlefield_ready_to_start():
     assert game.winner == player1.player
     assert game.looser == player2.player
 
-    expected_result = {
-        'winner': player1.player,
-        'looser': player2.player
-    }
+    expected_result = {"winner": player1.player, "looser": player2.player}
     assert expected_result == game.get_result_info()
