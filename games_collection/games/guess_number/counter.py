@@ -3,11 +3,13 @@ class Counter(object):
         self._guesses = guesses
         self._misses = misses
 
-    def increment_guesses(self):
+    def increment_guesses(self) -> int:
         self._guesses += 1
+        return self._guesses
 
-    def increment_misses(self):
+    def increment_misses(self) -> int:
         self._misses += 1
+        return self._misses
 
     @property
     def misses(self) -> int:

@@ -1,10 +1,54 @@
 import typing as t
+import random
 
+from games_collection.games.guess_number.settings import GuessNumberSettings
 from games_collection.games.guess_number.counter import Counter
 from games_collection.player import Player
-from games_collection.games.guess_number.settings import GuessNumberSettings
 
-counter = Counter()
+
+class PlayersCountersStorage(object):
+    def __init__(self):
+        self.players_counters_map = {}
+
+    def add_player_counter(self, player: Player, counter: Counter):
+        self.players_counters_map[player.id] = counter
+
+    def get_player_counter(self, player: Player) -> Counter:
+        # todo: handle player.id not in players_counter_map
+        return self.players_counters_map[player.id]
+
+
+class AbstractNumberUpdateStrategy(object):
+    def get_number(self) -> int:
+        raise NotImplementedError
+
+
+class RandomNumberUpdateStrategy(AbstractNumberUpdateStrategy):
+    def __init__(self, min_value: int, max_value: int):
+        self._min_value = min_value
+        self._max_value = max_value
+
+    def get_number(self) -> int:
+        return random.randint(self._min_value, self._max_value)
+
+
+class NumberToGuess(object):
+    def __init__(
+            self,
+            update_strategy: AbstractNumberUpdateStrategy,
+            initial_value: int = None,
+    ):
+        self._update_strategy = update_strategy
+        self._current_number = (
+            update_strategy.get_number()
+            if initial_value is None else initial_value
+        )
+
+    def update(self):
+        self._current_number = self._update_strategy.get_number()
+
+    def get_number(self) -> int:
+        return self._current_number
 
 
 class AbstractAction(object):
@@ -18,32 +62,39 @@ class TryToGuessAction(AbstractAction):
 
 
 class ActionHandler(object):
+    _action_class = None
+
     def handle(self, action: AbstractAction):
+        if not isinstance(action, self._action_class):
+            raise Exception(
+                f"Expected action: {self._action_class}, got: {type(action)}"
+            )
         raise NotImplementedError
 
 
 class TryToGuessActionHandler(ActionHandler):
     _action_class = TryToGuessAction
 
-    def __init__(self, settings: GuessNumberSettings):
+    def __init__(
+            self,
+            settings: GuessNumberSettings,
+            players_counters_storage: PlayersCountersStorage,
+            number_to_guess: NumberToGuess
+    ):
         self._settings = settings
+        self._players_counters_storage: PlayersCountersStorage = \
+            players_counters_storage
+        self._number_to_guess = number_to_guess
 
     def get_player_counter(self, player: Player) -> Counter:
-        return counter
-
-    def get_number_to_guess(self) -> int:
-        return 1
-
-    def update_number_to_guess(self):
-        raise NotImplementedError
+        return self._players_counters_storage.get_player_counter(player)
 
     def handle(self, action: TryToGuessAction):
-        if not isinstance(action, self._action_class):
-            raise Exception("Not Try To Guess action, can't be handled")
+        super(TryToGuessActionHandler, self).handle(action)
         player_counter = self.get_player_counter(action.player)
-        if action.number == self.get_number_to_guess():
+        if action.number == self._number_to_guess.get_number():
             player_counter.increment_guesses()
-            self.update_number_to_guess()
+            self._number_to_guess.update()
         else:
             player_counter.increment_misses()
 
