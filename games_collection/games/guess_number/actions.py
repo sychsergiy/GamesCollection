@@ -13,11 +13,11 @@ class TryToGuessAction(AbstractAction):
 
 class TryToGuessActionResult(AbstractActionResult):
     def __init__(
-            self,
-            guessed: bool,
-            left_to_guess: int,
-            guessed_times: int,
-            missed_times: int,
+        self,
+        guessed: bool,
+        left_to_guess: int,
+        guessed_times: int,
+        missed_times: int,
     ):
         self.guessed = guessed
         self.left_to_guess = left_to_guess

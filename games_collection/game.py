@@ -13,7 +13,7 @@ class AbstractGame(object):
     title = None
 
     def __init__(
-            self, match: PlayerVsPlayerMatch, settings: AbstractGameSettings
+        self, match: PlayerVsPlayerMatch, settings: AbstractGameSettings
     ):
         self._match = match
         self._settings = settings

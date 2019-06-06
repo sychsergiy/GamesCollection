@@ -30,11 +30,12 @@ class ActionsHandlerRegister(object):
 
     def register(self, action_register: ActionRegister):
         # todo: warning the same action will be overwritten
-        self._actions_handlers_map[action_register.action_class] = \
-            action_register.action_handler
+        self._actions_handlers_map[
+            action_register.action_class
+        ] = action_register.action_handler
 
     def _get_action_handler(
-            self, action: AbstractAction
+        self, action: AbstractAction
     ) -> AbstractActionHandler:
         action_class = type(action)
         return self._actions_handlers_map[action_class]

@@ -5,7 +5,7 @@ from games_collection.match import PlayerVsPlayerMatch
 
 class GuessNumberGameData(AbstractGameData):
     def __init__(
-            self, settings: GuessNumberSettings, match: PlayerVsPlayerMatch,
+        self, settings: GuessNumberSettings, match: PlayerVsPlayerMatch
     ):
         self._settings = settings
         self._match = match

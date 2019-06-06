@@ -1,9 +1,7 @@
 from games_collection.games.guess_number.guess_number import NumberToGuess
 from games_collection.games.guess_number.guesses_counter import GuessesCounter
 from games_collection.games.guess_number.settings import GuessNumberSettings
-from games_collection.games.guess_number.players_counters import (
-    PlayersCounters
-)
+from games_collection.games.guess_number.players_counters import PlayersCounters
 from games_collection.games.guess_number.actions import (
     TryToGuessAction,
     TryToGuessActionResult,
@@ -17,10 +15,10 @@ class TryToGuessActionHandler(AbstractActionHandler):
     action_class = TryToGuessAction
 
     def __init__(
-            self,
-            match: PlayerVsPlayerMatch,
-            settings: GuessNumberSettings,
-            number_to_guess: NumberToGuess,
+        self,
+        match: PlayerVsPlayerMatch,
+        settings: GuessNumberSettings,
+        number_to_guess: NumberToGuess,
     ):
         self._settings = settings
         self._number_to_guess = number_to_guess
@@ -53,12 +51,12 @@ class TryToGuessActionHandler(AbstractActionHandler):
             player_counter.increment_misses()
         self._match.finish_current_player_turn()
         left_to_guess = (
-                self._settings.guess_times_to_winn - player_counter.guesses
+            self._settings.guess_times_to_winn - player_counter.guesses
         )
         action_result = TryToGuessActionResult(
             guessed=True,
             left_to_guess=left_to_guess,
             guessed_times=player_counter.guesses,
-            missed_times=player_counter.misses
+            missed_times=player_counter.misses,
         )
         return action_result

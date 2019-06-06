@@ -10,6 +10,7 @@ counter = GuessesCounter()
 
 def update_number_to_guess():
     import random
+
     global number_to_guess
     number_to_guess = random.randint(0, 10)
 
