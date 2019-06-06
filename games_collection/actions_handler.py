@@ -1,15 +1,31 @@
 import typing as t
 
-from games_collection.games.guess_number.action_handlers import ActionHandler
-from games_collection.games.guess_number.actions import AbstractAction
+
+class AbstractAction(object):
+    pass
+
+
+class AbstractActionResult(object):
+    pass
+
+
+class AbstractActionHandler(object):
+    action_class = None
+
+    def handle(self, action: AbstractAction) -> AbstractActionResult:
+        if not isinstance(action, self.action_class):
+            raise Exception(
+                f"Expected action: {self.action_class}, got: {type(action)}"
+            )
+        raise NotImplementedError
 
 
 class ActionRegister(t.NamedTuple):
     action_class: t.ClassVar[AbstractAction]
-    action_handler: ActionHandler
+    action_handler: AbstractActionHandler
 
 
-class ActionsHandler(object):
+class ActionsHandlerRegister(object):
     def __init__(self: t.List[ActionRegister]):
         self._actions_handlers_map = {}
 
@@ -18,7 +34,9 @@ class ActionsHandler(object):
         self._actions_handlers_map[action_register.action_class] = \
             action_register.action_handler
 
-    def _get_action_handler(self, action: AbstractAction) -> ActionHandler:
+    def _get_action_handler(
+            self, action: AbstractAction
+    ) -> AbstractActionHandler:
         action_class = type(action)
         return self._actions_handlers_map[action_class]
 
@@ -28,6 +46,6 @@ class ActionsHandler(object):
 
     def handle_action(self, action: AbstractAction):
         if not self._is_action_registered(action):
-            raise Exception(f"not registred action: {type(action)}")
+            raise Exception(f"not registered action: {type(action)}")
         handler = self._get_action_handler(action)
-        handler.handle(action)
+        return handler.handle(action)
