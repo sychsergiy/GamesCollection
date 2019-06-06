@@ -4,6 +4,7 @@ from games_collection.games.battleship.player.exceptions import (
 )
 from games_collection.games.battleship.game.game import BattleshipGame
 from games_collection.games.battleship.game_mode import short_game_mode
+from games_collection.games.battleship.player.player import BattleshipPlayer
 
 from games_collection.match import PlayerVsPlayerMatch
 from games_collection.player import Player
@@ -14,13 +15,13 @@ def print_battlefield(battlefield_matrix):
         print(''.join(row))
 
 
-player1 = Player("Player1", 1)
-player2 = Player("Player2", 2)
-match = PlayerVsPlayerMatch(player1, player2)
+user1 = Player("Player1", 1)
+user2 = Player("Player2", 2)
+match = PlayerVsPlayerMatch(user1, user2)
 battleship_game = BattleshipGame(match, short_game_mode)
 
-player1 = battleship_game.init_battleship_field_for_player(player1)
-player2 = battleship_game.init_battleship_field_for_player(player2)
+player1: BattleshipPlayer = battleship_game.create_game_player(user1)
+player2: BattleshipPlayer = battleship_game.create_game_player(user2)
 
 player1.locate_ship(Cell(0, 0), 2)
 player1.locate_ship(Cell(2, 2), 2)

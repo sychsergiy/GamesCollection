@@ -1,8 +1,12 @@
-from games_collection.games.battleship.game.game import BattleshipGame
+from games_collection.game_data import AbstractGameData
+from games_collection.game_player import AbstractGamePlayer
 from games_collection.player import Player
+
+from games_collection.games.battleship.game.game import BattleshipGame
 from games_collection.games.battleship.battleship_field import BattleshipField
 from games_collection.games.battleship.cell import Cell
 from games_collection.games.battleship.gun import Gun
+
 from .exceptions import (
     OpponentNotConnectedToGameException,
     OpponentShipsNotLocatedException,
@@ -13,8 +17,11 @@ from .exceptions import (
 )
 
 
-class BattleshipPlayer(object):
+class BattleshipPlayer(AbstractGamePlayer):
     def __init__(self, player: Player, game: BattleshipGame):
+        # todo: remove this and use AbstractGameData(inherit new class)
+        #  instead of game directly
+        super(BattleshipPlayer, self).__init__(AbstractGameData())
         self.player = player
         self._battleship_game = game
 

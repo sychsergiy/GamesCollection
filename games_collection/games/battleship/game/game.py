@@ -1,3 +1,4 @@
+from games_collection.game_player import AbstractGamePlayer
 from games_collection.games.battleship.game_mode import GameMode
 from games_collection.games.battleship.battleship_field import BattleshipField
 from games_collection.game import AbstractGame
@@ -14,7 +15,7 @@ class BattleshipGame(AbstractGame):
 
         self._players_battleship_fields = {}
 
-    def init_battleship_field_for_player(self, player: Player):
+    def create_game_player(self, player: Player):
         if player not in (self._match.first_player, self._match.second_player):
             raise Exception("Player not in match")
 

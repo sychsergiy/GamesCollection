@@ -1,4 +1,5 @@
 from games_collection.match import PlayerVsPlayerMatch
+from games_collection.game_player import AbstractGamePlayer
 from games_collection.player import Player
 
 
@@ -21,3 +22,6 @@ class AbstractGame(object):
 
     def finish_current_player_turn(self):
         self._match.finish_current_player_turn()
+
+    def create_game_player(self, player: Player) -> AbstractGamePlayer:
+        raise NotImplementedError
