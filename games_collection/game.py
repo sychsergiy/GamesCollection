@@ -1,13 +1,17 @@
 from games_collection.match import PlayerVsPlayerMatch
 from games_collection.game_player import AbstractGamePlayer
 from games_collection.player import Player
+from games_collection.settings import AbstractGameSettings
 
 
 class AbstractGame(object):
     title = None
 
-    def __init__(self, match: PlayerVsPlayerMatch):
+    def __init__(
+            self, match: PlayerVsPlayerMatch, settings: AbstractGameSettings
+    ):
         self._match = match
+        self._settings = settings
         self._finished = False
 
     def finish(self):

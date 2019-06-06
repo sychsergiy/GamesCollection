@@ -1,4 +1,4 @@
-from games_collection.game_player import AbstractGamePlayer
+from games_collection.settings import AbstractGameSettings
 from games_collection.games.battleship.game_mode import GameMode
 from games_collection.games.battleship.battleship_field import BattleshipField
 from games_collection.game import AbstractGame
@@ -10,7 +10,8 @@ class BattleshipGame(AbstractGame):
     title = "Battleship"
 
     def __init__(self, match: PlayerVsPlayerMatch, game_mode: GameMode):
-        super(BattleshipGame, self).__init__(match)
+        # todo: Inherit game_mode from AbstractGameSettings
+        super(BattleshipGame, self).__init__(match, AbstractGameSettings())
         self._game_mode = game_mode
 
         self._players_battleship_fields = {}
