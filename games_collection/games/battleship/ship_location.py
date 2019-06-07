@@ -12,11 +12,7 @@ class ShipRotationEnum(Enum):
 
 
 class AbstractShipLocation(object):
-    def __init__(
-            self,
-            ship: Ship,
-            cell: Cell,
-    ):
+    def __init__(self, ship: Ship, cell: Cell):
         self.ship = ship
         self.left_top_cell = cell
 
@@ -35,10 +31,12 @@ class AbstractShipLocation(object):
 
         cells = [
             Cell(x, y)
-            for x in
-            range(top_left_corner_around.x, down_right_corner_around.x + 1)
-            for y in
-            range(top_left_corner_around.y, down_right_corner_around.y + 1)
+            for x in range(
+                top_left_corner_around.x, down_right_corner_around.x + 1
+            )
+            for y in range(
+                top_left_corner_around.y, down_right_corner_around.y + 1
+            )
         ]
         return cells
 

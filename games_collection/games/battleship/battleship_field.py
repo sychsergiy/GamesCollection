@@ -1,7 +1,7 @@
 import typing as t
 
 from games_collection.games.battleship.battlefield_view import BattlefieldView
-from games_collection.games.battleship.game_mode import GameMode
+from games_collection.games.battleship.settings import BattleshipSettings
 from games_collection.games.battleship.ships_counter import ShipsCounter
 from games_collection.games.battleship.gun import Gun
 from games_collection.games.battleship.ships_locator import ShipsLocator
@@ -22,30 +22,23 @@ class ShipRotationEnum(Enum):
 
 
 class BattleshipField(object):
-    def __init__(
-            self,
-            game_mode: GameMode,
-
-    ):
-        self._ships_locator = ShipsLocator(game_mode.battlefield)
-        self._gun = Gun(
-            game_mode.battlefield, self._ships_locator
-        )
+    def __init__(self, settings: BattleshipSettings):
+        self._ships_locator = ShipsLocator(settings.battlefield)
+        self._gun = Gun(settings.battlefield, self._ships_locator)
         self._ship_locator = ShipLocator(
-            game_mode.battlefield, self._ships_locator
+            settings.battlefield, self._ships_locator
         )
         self._view = BattlefieldView(
-            game_mode.battlefield, self._ships_locator, self._gun
+            settings.battlefield, self._ships_locator, self._gun
         )
-        self._ships_counter = ShipsCounter(game_mode)
-
+        self._ships_counter = ShipsCounter(settings.ship_size_map)
         self._ships_locating_finished = False
 
     def locate_ship(
-            self,
-            cell: Cell,
-            ship_size: int,
-            rotation: ShipRotationEnum = ShipRotationEnum.HORIZONTAL
+        self,
+        cell: Cell,
+        ship_size: int,
+        rotation: ShipRotationEnum = ShipRotationEnum.HORIZONTAL,
     ) -> bool:
         assert isinstance(rotation, ShipRotationEnum)
 
@@ -67,8 +60,8 @@ class BattleshipField(object):
     @property
     def ships(self) -> t.List[Ship]:
         ships = [
-            ship_location.ship for ship_location in
-            self._ships_locator.ships_locations
+            ship_location.ship
+            for ship_location in self._ships_locator.ships_locations
         ]
         return ships
 

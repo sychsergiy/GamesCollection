@@ -1,7 +1,9 @@
 from games_collection.games.battleship.battlefield import Battlefield
 from games_collection.games.battleship.cell import Cell
 from games_collection.games.battleship.ship import Ship
-from games_collection.games.battleship.ship_location import HorizontalShipLocation
+from games_collection.games.battleship.ship_location import (
+    HorizontalShipLocation,
+)
 from games_collection.games.battleship.ship_locator import ShipLocator
 from games_collection.games.battleship.ships_locator import ShipsLocator
 from games_collection.games.battleship.gun import Gun

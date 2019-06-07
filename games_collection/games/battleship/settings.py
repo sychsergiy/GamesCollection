@@ -1,0 +1,16 @@
+from games_collection.settings import AbstractGameSettings
+
+from games_collection.games.battleship.battlefield import Battlefield
+
+
+class BattleshipSettings(AbstractGameSettings):
+    def __init__(self, battlefield: Battlefield, ship_size_map: dict):
+        self.battlefield = battlefield
+        self.ship_size_map = ship_size_map
+
+
+standard_game_mode = BattleshipSettings(
+    Battlefield(8, 8), {1: 4, 2: 3, 3: 2, 4: 1}
+)
+
+short_game_mode = BattleshipSettings(Battlefield(8, 8), {2: 3})

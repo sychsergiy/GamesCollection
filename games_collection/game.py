@@ -1,18 +1,32 @@
+from games_collection.match import PlayerVsPlayerMatch
+from games_collection.player import Player
+from games_collection.settings import AbstractGameSettings
+from games_collection.actions_handler import (
+    ActionsHandlerRegister,
+    AbstractActionResult,
+    AbstractAction,
+)
+
+
 class AbstractGame(object):
     title = None
 
-    def __init__(self):
-        self._finished = False
+    def __init__(
+            self, match: PlayerVsPlayerMatch, settings: AbstractGameSettings
+    ):
+        self._match = match
+        self._settings = settings
+        self._actions_handler = ActionsHandlerRegister()
+        self._register_actions_handlers()
 
-    def finish(self):
-        self._finished = True
+    def send_action(self, action: AbstractAction) -> AbstractActionResult:
+        return self._actions_handler.handle_action(action)
 
-    @property
-    def finished(self):
-        return self._finished
-
-    def get_result_info(self) -> dict:
+    def _register_actions_handlers(self):
         raise NotImplementedError
 
-    def __copy__(self):
-        raise NotImplementedError
+    def is_player_turn(self, player: Player) -> bool:
+        return self._match.is_player_turn(player)
+
+    def finish_current_player_turn(self):
+        self._match.finish_current_player_turn()
