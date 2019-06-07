@@ -9,8 +9,8 @@ class BattleshipSettings(AbstractGameSettings):
         self.ship_size_map = ship_size_map
 
 
-standard_game_mode = BattleshipSettings(
+standard_match_settings = BattleshipSettings(
     Battlefield(8, 8), {1: 4, 2: 3, 3: 2, 4: 1}
 )
 
-short_game_mode = BattleshipSettings(Battlefield(8, 8), {2: 3})
+short_match_settings = BattleshipSettings(Battlefield(8, 8), {2: 3})
