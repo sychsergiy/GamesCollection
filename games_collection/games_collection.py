@@ -1,18 +1,17 @@
 import typing as t
-import copy
 
-from games_collection.game import AbstractGame
+from games_collection.game_configurator import AbstractGameConfigurator
 
 
 class GamesCollection(object):
-    def __init__(self, games: t.List[AbstractGame]):
-        self._games = games
+    def __init__(self):
+        self._configurators_map: t.Dict[str, AbstractGameConfigurator] = {}
 
-    def list_games(self):
-        games_titles = [game.title for game in self._games]
-        return games_titles
+    def add_game(self, title: str, configurator: AbstractGameConfigurator):
+        self._configurators_map[title] = configurator
 
-    def choose_game(self, game_title: str) -> AbstractGame:
-        for game in self._games:
-            if game.title == game_title:
-                return copy.copy(game)
+    def list_games(self) -> t.List[str]:
+        return list(self._configurators_map.keys())
+
+    def choose_game(self, game_title: str) -> AbstractGameConfigurator:
+        return self._configurators_map[game_title]

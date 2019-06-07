@@ -15,8 +15,8 @@ class GuessNumberGame(AbstractGame):
             settings: GuessNumberSettings,
             number_to_guess: NumberToGuess
     ):
-        super(GuessNumberGame, self).__init__(match, settings)
         self._number_to_guess = number_to_guess
+        super(GuessNumberGame, self).__init__(match, settings)
 
     def _register_actions_handlers(self):
         try_to_guess_action_handler = TryToGuessActionHandler(
