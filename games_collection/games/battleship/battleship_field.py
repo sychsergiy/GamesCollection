@@ -22,17 +22,16 @@ class ShipRotationEnum(Enum):
 
 
 class BattleshipField(object):
-    def __init__(self, game_mode: BattleshipSettings):
-        self._ships_locator = ShipsLocator(game_mode.battlefield)
-        self._gun = Gun(game_mode.battlefield, self._ships_locator)
+    def __init__(self, settings: BattleshipSettings):
+        self._ships_locator = ShipsLocator(settings.battlefield)
+        self._gun = Gun(settings.battlefield, self._ships_locator)
         self._ship_locator = ShipLocator(
-            game_mode.battlefield, self._ships_locator
+            settings.battlefield, self._ships_locator
         )
         self._view = BattlefieldView(
-            game_mode.battlefield, self._ships_locator, self._gun
+            settings.battlefield, self._ships_locator, self._gun
         )
-        self._ships_counter = ShipsCounter(game_mode)
-
+        self._ships_counter = ShipsCounter(settings.ship_size_map)
         self._ships_locating_finished = False
 
     def locate_ship(
