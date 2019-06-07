@@ -32,6 +32,7 @@ class LocateShipActionHandler(AbstractActionHandler):
         self._players_battleship_fields = players_battleship_fields
 
     def handle(self, action: LocateShipAction) -> LocateShipActionResult:
+        super(LocateShipActionHandler, self).handle(action)
         battleship_field = (
             self._players_battleship_fields.get_player_battleship_field(
                 action.player
