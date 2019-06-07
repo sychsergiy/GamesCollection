@@ -8,7 +8,8 @@ from games_collection.player import Player
 class BattleshipGame(AbstractGame):
     title = "Battleship"
 
-    def __init__(self, match: PlayerVsPlayerMatch, settings: BattleshipSettings):
+    def __init__(self, match: PlayerVsPlayerMatch,
+                 settings: BattleshipSettings):
         super(BattleshipGame, self).__init__(match, settings)
         self._settings = settings
         self._players_battleship_fields = {}
@@ -36,4 +37,25 @@ class BattleshipGame(AbstractGame):
         raise Exception("Opponent battleship ship field doesn't exists")
 
     def _register_actions_handlers(self):
-        pass
+        from games_collection.games.battleship.actions.locate_ship import (
+            LocateShipActionHandler
+        )
+        from games_collection.games.battleship.players_battleship_fields import \
+            PlayersBattleshipFields
+
+        battleship_fields = PlayersBattleshipFields()
+        battleship_fields.add_player_battleship_field(
+            self._match.first_player, BattleshipField(self._settings)
+        )
+        battleship_fields.add_player_battleship_field(
+            self._match.second_player, BattleshipField(self._settings)
+        )
+
+        locate_ship_action_handler = LocateShipActionHandler(
+            battleship_fields
+        )
+
+        self._actions_handler.register(
+            locate_ship_action_handler.action_class,
+            locate_ship_action_handler
+        )

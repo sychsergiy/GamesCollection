@@ -26,6 +26,8 @@ class LocateShipActionResult(AbstractActionResult):
 
 
 class LocateShipActionHandler(AbstractActionHandler):
+    action_class = LocateShipAction
+
     def __init__(self, players_battleship_fields: PlayersBattleshipFields):
         self._players_battleship_fields = players_battleship_fields
 
