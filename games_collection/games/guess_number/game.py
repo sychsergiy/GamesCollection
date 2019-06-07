@@ -12,7 +12,7 @@ from games_collection.games.guess_number.guess_number_strategy import (
 
 class GuessNumberGame(AbstractGame):
     def _register_actions_handlers(self):
-        update_strategy = RandomNumberUpdateStrategy(1, 10)
+        update_strategy = RandomNumberUpdateStrategy(1, 3)
         number_to_guess = NumberToGuess(update_strategy)
 
         try_to_guess_action_handler = TryToGuessActionHandler(
