@@ -1,0 +1,2 @@
+class AbstractGameConfiguration(object):
+    pass
