@@ -5,7 +5,7 @@ from games_collection.player import Player
 from games_collection.games.battleship.battlefield import Battlefield
 from games_collection.games.battleship.cell import Cell
 from games_collection.games.battleship.gun import Gun
-from games_collection.games.battleship.game_mode import GameMode
+from games_collection.games.battleship.settings import BattleshipSettings
 from games_collection.games.battleship.game.game import BattleshipGame
 from games_collection.games.battleship.player.player import BattleshipPlayer
 from games_collection.games.battleship.player.exceptions import (
@@ -20,7 +20,7 @@ from games_collection.games.battleship.game.exceptions import (
 
 def test_player_battlefield_ready_to_start():
     ship_size_count_map = {1: 2}
-    game_mode = GameMode(Battlefield(4, 4), ship_size_count_map)
+    game_mode = BattleshipSettings(Battlefield(4, 4), ship_size_count_map)
 
     p1 = Player("player1", 1)
     p2 = Player("player2", 2)

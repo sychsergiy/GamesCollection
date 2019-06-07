@@ -1,8 +1,8 @@
-from games_collection.games.battleship.game_mode import GameMode
+from games_collection.games.battleship.settings import BattleshipSettings
 
 
 class ShipsCounter(object):
-    def __init__(self, game_mode: GameMode):
+    def __init__(self, game_mode: BattleshipSettings):
         self._game_mode = game_mode
         self._ship_size_count_map = game_mode.ship_size_map.copy()
 

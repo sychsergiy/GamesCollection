@@ -3,7 +3,7 @@ from games_collection.games.battleship.player.exceptions import (
     GameOverException
 )
 from games_collection.games.battleship.game.game import BattleshipGame
-from games_collection.games.battleship.game_mode import short_game_mode
+from games_collection.games.battleship.settings import short_game_mode
 from games_collection.games.battleship.player.player import BattleshipPlayer
 
 from games_collection.match import PlayerVsPlayerMatch
