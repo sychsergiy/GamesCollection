@@ -40,7 +40,7 @@ class ShotActionHandler(AbstractActionHandler):
         self._players_battleship_fields = players_battleship_fields
 
     def handle(self, action: ShotAction) -> ShotActionResult:
-        from games_collection.games.battleship.player.exceptions import (
+        from games_collection.games.battleship.exceptions import (
             PlayerShipsNotLocatedException,
             OpponentShipsNotLocatedException,
             OpponentTurnException,

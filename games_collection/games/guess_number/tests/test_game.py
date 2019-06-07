@@ -16,7 +16,7 @@ def test_game():
     game = GuessNumberGame(match, settings)
 
     result = game.send_action(TryToGuessAction(player1, 1))
-    assert result.guessed == False
+    assert result.guessed is False
     game.send_action(TryToGuessAction(player2, 1))
 
     with pytest.raises(Exception):

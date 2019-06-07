@@ -1,10 +1,9 @@
 from games_collection.games.battleship.cell import Cell
-from games_collection.games.battleship.player.exceptions import (
+from games_collection.games.battleship.exceptions import (
     GameOverException
 )
-from games_collection.games.battleship.game.game import BattleshipGame
+from games_collection.games.battleship.game import BattleshipGame
 from games_collection.games.battleship.settings import short_game_mode
-from games_collection.games.battleship.player.player import BattleshipPlayer
 
 from games_collection.match import PlayerVsPlayerMatch
 from games_collection.player import Player
@@ -20,8 +19,8 @@ user2 = Player("Player2", 2)
 match = PlayerVsPlayerMatch(user1, user2)
 battleship_game = BattleshipGame(match, short_game_mode)
 
-player1: BattleshipPlayer = battleship_game.create_game_player(user1)
-player2: BattleshipPlayer = battleship_game.create_game_player(user2)
+# player1: BattleshipPlayer = battleship_game.create_game_player(user1)
+# player2: BattleshipPlayer = battleship_game.create_game_player(user2)
 
 player1.locate_ship(Cell(0, 0), 2)
 player1.locate_ship(Cell(2, 2), 2)
