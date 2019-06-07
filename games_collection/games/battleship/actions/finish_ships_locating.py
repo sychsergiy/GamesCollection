@@ -10,24 +10,26 @@ from games_collection.games.battleship.players_battleship_fields import (
 from games_collection.player import Player
 
 
-class FinishShipsLocatingStepAction(AbstractAction):
+class FinishShipsLocatingAction(AbstractAction):
     def __init__(self, player: Player):
         self.player = player
 
 
-class FinishShipsLocatingStepActionResult(AbstractActionResult):
+class FinishShipsLocatingActionResult(AbstractActionResult):
     def __init__(self, finished: bool):
         self.finished = finished
 
 
-class FinishShipsLocatingStepActionHandler(AbstractActionHandler):
+class FinishShipsLocatingActionHandler(AbstractActionHandler):
+    action_class = FinishShipsLocatingAction
+
     def __init__(self, players_battleship_fields: PlayersBattleshipFields):
         self._players_battleship_fields = players_battleship_fields
 
     def handle(
-            self, action: FinishShipsLocatingStepAction
-    ) -> FinishShipsLocatingStepActionResult:
-        super(FinishShipsLocatingStepActionHandler, self).handle(action)
+            self, action: FinishShipsLocatingAction
+    ) -> FinishShipsLocatingActionResult:
+        super(FinishShipsLocatingActionHandler, self).handle(action)
 
         battleship_field = (
             self._players_battleship_fields.get_player_battleship_field(
@@ -35,5 +37,5 @@ class FinishShipsLocatingStepActionHandler(AbstractActionHandler):
             )
         )
         finished = battleship_field.finish_ships_locating()
-        action_result = FinishShipsLocatingStepActionResult(finished)
+        action_result = FinishShipsLocatingActionResult(finished)
         return action_result

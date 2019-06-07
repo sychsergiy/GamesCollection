@@ -4,6 +4,19 @@ from games_collection.game import AbstractGame
 from games_collection.match import PlayerVsPlayerMatch
 from games_collection.player import Player
 
+# ---------
+from games_collection.actions_handler import ActionRegister
+
+from games_collection.games.battleship.players_battleship_fields import (
+    PlayersBattleshipFields
+)
+from games_collection.games.battleship.actions.locate_ship import (
+    LocateShipActionHandler
+)
+from games_collection.games.battleship.actions.finish_ships_locating import (
+    FinishShipsLocatingActionHandler
+)
+
 
 class BattleshipGame(AbstractGame):
     title = "Battleship"
@@ -37,11 +50,6 @@ class BattleshipGame(AbstractGame):
         raise Exception("Opponent battleship ship field doesn't exists")
 
     def _register_actions_handlers(self):
-        from games_collection.games.battleship.actions.locate_ship import (
-            LocateShipActionHandler
-        )
-        from games_collection.games.battleship.players_battleship_fields import \
-            PlayersBattleshipFields
 
         battleship_fields = PlayersBattleshipFields()
         battleship_fields.add_player_battleship_field(
@@ -54,8 +62,17 @@ class BattleshipGame(AbstractGame):
         locate_ship_action_handler = LocateShipActionHandler(
             battleship_fields
         )
-
-        self._actions_handler.register(
-            locate_ship_action_handler.action_class,
-            locate_ship_action_handler
+        finish_ships_locating_handler = FinishShipsLocatingActionHandler(
+            battleship_fields
         )
+
+        locate_ship_action_register = ActionRegister(
+            locate_ship_action_handler.action_class, locate_ship_action_handler
+        )
+        finish_ships_locating_action_register = ActionRegister(
+            finish_ships_locating_handler.action_class,
+            finish_ships_locating_handler
+        )
+
+        self._actions_handler.register(locate_ship_action_register)
+        self._actions_handler.register(finish_ships_locating_action_register)
