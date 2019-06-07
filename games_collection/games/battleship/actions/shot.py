@@ -68,6 +68,7 @@ class ShotActionHandler(AbstractActionHandler):
         is_game_over = False
         if shot_result == Gun.ShotResultEnum.SHIP_DESTROYED:
             is_game_over = opponent_battleship_field.all_ships_destroyed
+        self._match.finish_current_player_turn()
         action_result = ShotActionResult(
             shot_result=shot_result, is_game_over=is_game_over
         )
