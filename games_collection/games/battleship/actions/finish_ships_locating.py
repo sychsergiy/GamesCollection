@@ -1,12 +1,11 @@
 from games_collection.actions_handler import (
     AbstractAction,
-    AbstractActionResult,
     AbstractActionHandler,
+    AbstractActionResult,
 )
 from games_collection.games.battleship.players_battleship_fields import (
-    PlayersBattleshipFields
+    PlayersBattleshipFields,
 )
-
 from games_collection.player import Player
 
 
@@ -27,14 +26,12 @@ class FinishShipsLocatingActionHandler(AbstractActionHandler):
         self._players_battleship_fields = players_battleship_fields
 
     def handle(
-            self, action: FinishShipsLocatingAction
+        self, action: FinishShipsLocatingAction
     ) -> FinishShipsLocatingActionResult:
         super(FinishShipsLocatingActionHandler, self).handle(action)
 
-        battleship_field = (
-            self._players_battleship_fields.get_player_battleship_field(
-                action.player
-            )
+        battleship_field = self._players_battleship_fields.get_player_battleship_field(
+            action.player
         )
         finished = battleship_field.finish_ships_locating()
         action_result = FinishShipsLocatingActionResult(finished)

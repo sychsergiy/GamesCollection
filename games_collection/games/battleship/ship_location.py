@@ -1,5 +1,4 @@
 import typing as t
-
 from enum import Enum
 
 from games_collection.games.battleship.cell import Cell

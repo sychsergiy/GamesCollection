@@ -1,4 +1,5 @@
 import typing as t
+
 from games_collection.games.battleship.cell import Cell
 
 

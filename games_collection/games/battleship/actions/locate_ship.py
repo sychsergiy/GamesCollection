@@ -1,14 +1,13 @@
-from games_collection.player import Player
 from games_collection.actions_handler import (
     AbstractAction,
-    AbstractActionResult,
     AbstractActionHandler,
+    AbstractActionResult,
 )
-
 from games_collection.games.battleship.cell import Cell
 from games_collection.games.battleship.players_battleship_fields import (
-    PlayersBattleshipFields
+    PlayersBattleshipFields,
 )
+from games_collection.player import Player
 
 
 class LocateShipAction(AbstractAction):
@@ -33,16 +32,14 @@ class LocateShipActionHandler(AbstractActionHandler):
 
     def handle(self, action: LocateShipAction) -> LocateShipActionResult:
         super(LocateShipActionHandler, self).handle(action)
-        battleship_field = (
-            self._players_battleship_fields.get_player_battleship_field(
-                action.player
-            )
+        battleship_field = self._players_battleship_fields.get_player_battleship_field(
+            action.player
         )
         located = battleship_field.locate_ship(action.cell, action.ship_size)
         # todo: get ships_left from battleship_field.ships_counter
         action_result = LocateShipActionResult(
             located=located,
             ships_left={},
-            current_field=battleship_field.get_battlefield_view(True)
+            current_field=battleship_field.get_battlefield_view(True),
         )
         return action_result

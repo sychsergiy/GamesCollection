@@ -1,20 +1,20 @@
 import pytest
 
-from games_collection.games.battleship.actions.finish_ships_locating import \
-    FinishShipsLocatingAction
-from games_collection.games.battleship.actions.locate_ship import \
-    LocateShipAction
+from games_collection.games.battleship.actions.finish_ships_locating import (
+    FinishShipsLocatingAction,
+)
+from games_collection.games.battleship.actions.locate_ship import (
+    LocateShipAction,
+)
 from games_collection.games.battleship.actions.shot import ShotAction
-from games_collection.match import PlayerVsPlayerMatch
-from games_collection.player import Player
 from games_collection.games.battleship.battlefield import Battlefield
 from games_collection.games.battleship.cell import Cell
+from games_collection.games.battleship.exceptions import OpponentTurnException
+from games_collection.games.battleship.game import BattleshipGame
 from games_collection.games.battleship.gun import Gun
 from games_collection.games.battleship.settings import BattleshipSettings
-from games_collection.games.battleship.game import BattleshipGame
-from games_collection.games.battleship.exceptions import (
-    OpponentTurnException,
-)
+from games_collection.match import PlayerVsPlayerMatch
+from games_collection.player import Player
 
 
 def test_new_game_using_actions():

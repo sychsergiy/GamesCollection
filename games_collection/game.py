@@ -1,18 +1,18 @@
+from games_collection.actions_handler import (
+    AbstractAction,
+    AbstractActionResult,
+    ActionsHandlerRegister,
+)
 from games_collection.match import PlayerVsPlayerMatch
 from games_collection.player import Player
 from games_collection.settings import AbstractGameSettings
-from games_collection.actions_handler import (
-    ActionsHandlerRegister,
-    AbstractActionResult,
-    AbstractAction,
-)
 
 
 class AbstractGame(object):
     title = None
 
     def __init__(
-            self, match: PlayerVsPlayerMatch, settings: AbstractGameSettings
+        self, match: PlayerVsPlayerMatch, settings: AbstractGameSettings
     ):
         self._match = match
         self._settings = settings

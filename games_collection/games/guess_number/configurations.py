@@ -1,7 +1,7 @@
 from games_collection.game_configuration import AbstractGameConfiguration
 from games_collection.games.guess_number.guess_number import NumberToGuess
 from games_collection.games.guess_number.guess_number_strategy import (
-    RandomNumberUpdateStrategy
+    RandomNumberUpdateStrategy,
 )
 
 

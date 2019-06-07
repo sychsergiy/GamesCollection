@@ -1,7 +1,7 @@
 from games_collection.games.battleship.battlefield import Battlefield
-from games_collection.games.battleship.ships_locator import ShipsLocator
-from games_collection.games.battleship.gun import Gun
 from games_collection.games.battleship.cell import Cell
+from games_collection.games.battleship.gun import Gun
+from games_collection.games.battleship.ships_locator import ShipsLocator
 
 
 class BattlefieldView(object):

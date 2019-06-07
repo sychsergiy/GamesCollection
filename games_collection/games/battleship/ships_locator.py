@@ -1,9 +1,9 @@
 import typing as t
 
 from games_collection.games.battleship.battlefield import Battlefield
-from games_collection.games.battleship.ship_location import AbstractShipLocation
-from games_collection.games.battleship.ship import Ship
 from games_collection.games.battleship.cell import Cell
+from games_collection.games.battleship.ship import Ship
+from games_collection.games.battleship.ship_location import AbstractShipLocation
 
 
 class ShipsLocator(object):

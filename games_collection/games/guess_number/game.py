@@ -1,9 +1,8 @@
+from games_collection.actions_handler import ActionRegister
+from games_collection.game import AbstractGame
 from games_collection.games.guess_number.action_handlers import (
     TryToGuessActionHandler,
 )
-from games_collection.game import AbstractGame
-from games_collection.actions_handler import ActionRegister
-
 from games_collection.games.guess_number.guess_number import NumberToGuess
 from games_collection.games.guess_number.settings import GuessNumberSettings
 from games_collection.match import PlayerVsPlayerMatch
@@ -11,9 +10,10 @@ from games_collection.match import PlayerVsPlayerMatch
 
 class GuessNumberGame(AbstractGame):
     def __init__(
-            self, match: PlayerVsPlayerMatch,
-            settings: GuessNumberSettings,
-            number_to_guess: NumberToGuess
+        self,
+        match: PlayerVsPlayerMatch,
+        settings: GuessNumberSettings,
+        number_to_guess: NumberToGuess,
     ):
         self._number_to_guess = number_to_guess
         super(GuessNumberGame, self).__init__(match, settings)

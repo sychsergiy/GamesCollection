@@ -7,7 +7,7 @@ class PlayersBattleshipFields(object):
         self._players_battleship_fields_map = {}
 
     def add_player_battleship_field(
-            self, player: Player, battleship_field: BattleshipField
+        self, player: Player, battleship_field: BattleshipField
     ):
         self._players_battleship_fields_map[player.id] = battleship_field
 

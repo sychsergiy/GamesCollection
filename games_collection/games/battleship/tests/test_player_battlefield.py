@@ -1,6 +1,6 @@
+from games_collection.games.battleship.battlefield import Battlefield
 from games_collection.games.battleship.battleship_field import BattleshipField
 from games_collection.games.battleship.cell import Cell
-from games_collection.games.battleship.battlefield import Battlefield
 from games_collection.games.battleship.settings import BattleshipSettings
 
 

@@ -1,10 +1,10 @@
 import pytest
 
+from games_collection.games.guess_number.actions import TryToGuessAction
 from games_collection.games.guess_number.game import GuessNumberGame
 from games_collection.games.guess_number.settings import GuessNumberSettings
 from games_collection.match import PlayerVsPlayerMatch
 from games_collection.player import Player
-from games_collection.games.guess_number.actions import TryToGuessAction
 
 
 def test_game():

@@ -1,6 +1,5 @@
-from games_collection.settings import AbstractGameSettings
-
 from games_collection.games.battleship.battlefield import Battlefield
+from games_collection.settings import AbstractGameSettings
 
 
 class BattleshipSettings(AbstractGameSettings):

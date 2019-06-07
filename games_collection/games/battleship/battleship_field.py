@@ -1,19 +1,18 @@
 import typing as t
+from enum import Enum
 
 from games_collection.games.battleship.battlefield_view import BattlefieldView
-from games_collection.games.battleship.settings import BattleshipSettings
-from games_collection.games.battleship.ships_counter import ShipsCounter
-from games_collection.games.battleship.gun import Gun
-from games_collection.games.battleship.ships_locator import ShipsLocator
-from games_collection.games.battleship.ship_locator import ShipLocator
-from games_collection.games.battleship.ship_location import (
-    VerticalShipLocation,
-    HorizontalShipLocation,
-)
-from games_collection.games.battleship.ship import Ship
 from games_collection.games.battleship.cell import Cell
-
-from enum import Enum
+from games_collection.games.battleship.gun import Gun
+from games_collection.games.battleship.settings import BattleshipSettings
+from games_collection.games.battleship.ship import Ship
+from games_collection.games.battleship.ship_location import (
+    HorizontalShipLocation,
+    VerticalShipLocation,
+)
+from games_collection.games.battleship.ship_locator import ShipLocator
+from games_collection.games.battleship.ships_counter import ShipsCounter
+from games_collection.games.battleship.ships_locator import ShipsLocator
 
 
 class ShipRotationEnum(Enum):

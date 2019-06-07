@@ -1,14 +1,14 @@
-from games_collection.games.guess_number.guess_number import NumberToGuess
-from games_collection.games.guess_number.guesses_counter import GuessesCounter
-from games_collection.games.guess_number.settings import GuessNumberSettings
-from games_collection.games.guess_number.players_counters import PlayersCounters
+from games_collection.actions_handler import AbstractActionHandler
 from games_collection.games.guess_number.actions import (
     TryToGuessAction,
     TryToGuessActionResult,
 )
+from games_collection.games.guess_number.guess_number import NumberToGuess
+from games_collection.games.guess_number.guesses_counter import GuessesCounter
+from games_collection.games.guess_number.players_counters import PlayersCounters
+from games_collection.games.guess_number.settings import GuessNumberSettings
 from games_collection.match import PlayerVsPlayerMatch
 from games_collection.player import Player
-from games_collection.actions_handler import AbstractActionHandler
 
 
 class TryToGuessActionHandler(AbstractActionHandler):

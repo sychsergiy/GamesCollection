@@ -1,18 +1,17 @@
+from games_collection.games.battleship.configurations import (
+    short_game_configuration,
+    standard_configuration,
+)
 from games_collection.games.battleship.configurator import (
-    BattleshipConfigurator
+    BattleshipConfigurator,
+)
+from games_collection.games.guess_number.configurations import (
+    once_guess_configuration,
+    twice_guess_configuration,
 )
 from games_collection.games.guess_number.configurator import (
-    GuessNumberConfigurator
+    GuessNumberConfigurator,
 )
-
-from games_collection.games.guess_number.configurations import (
-    once_guess_configuration, twice_guess_configuration
-)
-
-from games_collection.games.battleship.configurations import (
-    standard_configuration, short_game_configuration
-)
-
 from games_collection.games_collection import GamesCollection
 from games_collection.match import PlayerVsPlayerMatch
 from games_collection.player import Player

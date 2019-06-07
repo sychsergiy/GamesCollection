@@ -1,24 +1,24 @@
-from games_collection.games.battleship.actions.finish_ships_locating import \
-    FinishShipsLocatingAction
+from games_collection.games.battleship.actions.finish_ships_locating import (
+    FinishShipsLocatingAction,
+)
+from games_collection.games.battleship.actions.locate_ship import (
+    LocateShipAction,
+)
 from games_collection.games.battleship.actions.shot import ShotAction
 from games_collection.games.battleship.battleship_field import BattleshipField
 from games_collection.games.battleship.cell import Cell
 from games_collection.games.battleship.game import BattleshipGame
-from games_collection.games.battleship.players_battleship_fields import \
-    PlayersBattleshipFields
+from games_collection.games.battleship.players_battleship_fields import (
+    PlayersBattleshipFields,
+)
 from games_collection.games.battleship.settings import short_match_settings
-
 from games_collection.match import PlayerVsPlayerMatch
 from games_collection.player import Player
-
-from games_collection.games.battleship.actions.locate_ship import (
-    LocateShipAction
-)
 
 
 def print_battlefield(battlefield_matrix):
     for row in battlefield_matrix:
-        print(''.join(row))
+        print("".join(row))
 
 
 def run_battleship_demo():
@@ -41,7 +41,8 @@ def run_battleship_demo():
     battleship_game.send_action(LocateShipAction(player1, Cell(0, 0), 2))
     battleship_game.send_action(LocateShipAction(player1, Cell(2, 2), 2))
     result = battleship_game.send_action(
-        LocateShipAction(player1, Cell(6, 6), 2))
+        LocateShipAction(player1, Cell(6, 6), 2)
+    )
 
     print_battlefield(result.current_field)
     print()
@@ -52,7 +53,8 @@ def run_battleship_demo():
     battleship_game.send_action(LocateShipAction(player2, Cell(0, 0), 2))
     battleship_game.send_action(LocateShipAction(player2, Cell(4, 4), 2))
     result = battleship_game.send_action(
-        LocateShipAction(player2, Cell(6, 6), 2))
+        LocateShipAction(player2, Cell(6, 6), 2)
+    )
 
     print_battlefield(result.current_field)
     print()

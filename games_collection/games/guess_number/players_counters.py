@@ -1,5 +1,5 @@
-from games_collection.player import Player
 from games_collection.games.guess_number.guesses_counter import GuessesCounter
+from games_collection.player import Player
 
 
 class PlayersCounters(object):
