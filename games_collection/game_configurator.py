@@ -12,7 +12,7 @@ class AbstractGameConfigurator(object):
     def create_game_from_configuration(
             self,
             match: PlayerVsPlayerMatch,
-            game_configuration: AbstractGameConfiguration
+            configuration: AbstractGameConfiguration
     ) -> AbstractGame:
         raise NotImplementedError
 

@@ -22,27 +22,23 @@ from games_collection.games.battleship.actions.shot import (
 
 class BattleshipGame(AbstractGame):
     def __init__(
-            self, match: PlayerVsPlayerMatch, settings: BattleshipSettings
+            self,
+            match: PlayerVsPlayerMatch,
+            settings: BattleshipSettings,
+            players_battleship_fields: PlayersBattleshipFields
     ):
+        self._players_battleship_fields = players_battleship_fields
         super(BattleshipGame, self).__init__(match, settings)
 
     def _register_actions_handlers(self):
-        battleship_fields = PlayersBattleshipFields()
-        battleship_fields.add_player_battleship_field(
-            self._match.first_player, BattleshipField(self._settings)
-        )
-        battleship_fields.add_player_battleship_field(
-            self._match.second_player, BattleshipField(self._settings)
-        )
-
         locate_ship_action_handler = LocateShipActionHandler(
-            battleship_fields
+            self._players_battleship_fields
         )
         finish_ships_locating_handler = FinishShipsLocatingActionHandler(
-            battleship_fields
+            self._players_battleship_fields
         )
         shot_action_handler = ShotActionHandler(
-            battleship_fields, self._match,
+            self._players_battleship_fields, self._match,
         )
 
         locate_ship_action_register = ActionRegister(

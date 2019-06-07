@@ -13,10 +13,10 @@ class GuessNumberConfigurator(AbstractGameConfigurator):
     def create_game_from_configuration(
             self,
             match: PlayerVsPlayerMatch,
-            game_configuration: GuessNumberConfiguration
+            configuration: GuessNumberConfiguration
     ) -> GuessNumberGame:
-        settings = GuessNumberSettings(game_configuration.guess_times_to_win)
+        settings = GuessNumberSettings(configuration.guess_times_to_win)
         game = GuessNumberGame(
-            match, settings, game_configuration.number_to_guess
+            match, settings, configuration.number_to_guess
         )
         return game
