@@ -29,6 +29,8 @@ class ShotActionResult(AbstractActionResult):
 
 
 class ShotActionHandler(AbstractActionHandler):
+    action_class = ShotAction
+
     def __init__(
             self,
             players_battleship_fields: PlayersBattleshipFields,
