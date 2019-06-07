@@ -3,6 +3,7 @@ from games_collection.actions_handler import (
     AbstractActionResult,
     AbstractActionHandler
 )
+from games_collection.games.battleship.battleship_field import BattleshipField
 from games_collection.games.battleship.cell import Cell
 from games_collection.games.battleship.gun import Gun
 from games_collection.games.battleship.players_battleship_fields import (
@@ -22,9 +23,13 @@ class ShotActionResult(AbstractActionResult):
     def __init__(
             self,
             shot_result: Gun.ShotResultEnum,
+            player_field: BattleshipField,
+            opponent_field: BattleshipField,
             is_game_over: bool = False
     ):
         self.shot_result = shot_result
+        self.player_field = player_field
+        self.opponent_field = opponent_field
         self.is_game_over = is_game_over
 
 
@@ -70,6 +75,10 @@ class ShotActionHandler(AbstractActionHandler):
             is_game_over = opponent_battleship_field.all_ships_destroyed
         self._match.finish_current_player_turn()
         action_result = ShotActionResult(
-            shot_result=shot_result, is_game_over=is_game_over
+            shot_result=shot_result,
+            is_game_over=is_game_over,
+            opponent_field=opponent_battleship_field.get_battlefield_view(
+                False),
+            player_field=opponent_battleship_field.get_battlefield_view(False),
         )
         return action_result
